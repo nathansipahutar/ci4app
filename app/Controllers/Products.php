@@ -77,16 +77,23 @@ class Products extends BaseController
                     'required' => '{field} product harus diisi,',
                 ]
             ],
+            //gambar disini mengacu kepada name di input (create.php)
             'gambar' => [
-                'rules' => 'required',
+                'rules' => 'uploaded[gambar]|max_size[gambar,1024]]|is_image[gambar]|mime_in[gambar,image/jpg, image/jpeg, image/png]',
                 'errors' => [
-                    'required' => '{field} product harus diisi,',
+                    'uploaded' => 'Pilih gambar terlebih dahulu',
+                    'max_size' => 'Ukuran gambar terlalu besar',
+                    'is_image' => 'Yang anda pilih bukan gambar',
+                    'mime_in' => 'Yang anda pilih bukan gambar'
                 ]
             ]
         ])) {
+            // gaperlu lagi
             $validation = \Config\Services::validation();
             //Dia mengirim data ke session dengan withInput dan membawa nilai validasi dari controler ke products/create.php
             return redirect()->to('/products/create')->withInput()->with('validation', $validation);
+
+            // return redirect()->to('/products/create')->withInput();
         }
 
         // dd($this->request->getVar());
