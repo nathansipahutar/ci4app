@@ -121,4 +121,62 @@ class Products extends BaseController
         ];
         return view('products/edit', $data);
     }
+
+    public function update($id)
+    {
+        //CEK JUDUL
+        $productsLama = $this->productsmodel->getProducts($this->request->getVar('slug'));
+        if ($productsLama['nama'] == $this->request->getVar('nama')) {
+            $rule_nama = 'required';
+        } else {
+            $rule_nama = 'required|is_unique[products.nama]';
+        }
+
+        if (!$this->validate([
+            //kalau mau nambah rules baru, tambah pake |. misal required|numeric
+            'nama' => [
+                'rules' => $rule_nama,
+                'errors' => [
+                    'required' => '{field} product harus diisi,',
+                    'is_unique' => '{field} product sudah terdaftar'
+                ]
+            ],
+            'harga' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} product harus diisi,',
+                ]
+            ],
+            'stok' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} product harus diisi,',
+                ]
+            ],
+            'gambar' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} product harus diisi,',
+                ]
+            ]
+        ])) {
+            $validation = \Config\Services::validation();
+            //Dia mengirim data ke session dengan withInput dan membawa nilai validasi dari controler ke products/create.php
+            return redirect()->to('/product/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
+        }
+
+        $slug = url_title($this->request->getVar('nama'), '-', true);
+        $this->productsmodel->save([
+            'id' => $id,
+            'nama' => $this->request->getVar('nama'),
+            'slug' => $slug,
+            'harga' => $this->request->getVar('harga'),
+            'stok' => $this->request->getVar('stok'),
+            'gambar' => $this->request->getVar('gambar'),
+        ]);
+
+        session()->setFlashdata('pesan', 'Data berhasil diubah!');
+
+        return redirect()->to('/products');
+    }
 }

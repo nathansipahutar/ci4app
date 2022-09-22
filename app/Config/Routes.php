@@ -56,7 +56,10 @@ $routes->get('/products/delete/(:segment)', 'Products::delete/$1');
 $routes->delete('/products/(:num)', 'Products::delete/$1');
 
 //EDIT
-$routes->get('/products/edit/(:segment)', 'Products::edit/$1');
+$routes->get('/product/edit/(:segment)', 'Products::edit/$1');
+
+//UPDATE
+$routes->post('/product/update/(:segment)', 'Products::update/$1');
 
 // $routes->get('/coba', function () {
 //     echo 'Halo';

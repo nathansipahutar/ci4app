@@ -5,13 +5,15 @@
     <div class="row">
         <div class="col-8">
             <h2 class="my-3">Form Edit Data Product</h2>
-            <form action="/products/save" method="post">
+            <form action="/product/update/<?= $products['id']; ?>" method="post">
                 <!-- crsf agar form hanya dapat diakses di halaman ini -->
                 <?= csrf_field(); ?>
+                <input type="hidden" name="slug" id="" value="<?= $products['slug']; ?>">
+
                 <div class="form-group row">
                     <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid' : ''; ?>" id="nama" name="nama" autofocus value="<?= old('nama'); ?>">
+                        <input type="text" class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid' : ''; ?>" id="nama" name="nama" autofocus value="<?= (old('nama')) ? old('nama') : $products['nama'] ?>">
                         <div class="invalid-feedback">
                             <?= $validation->getError('nama'); ?>
                         </div>
@@ -20,7 +22,7 @@
                 <div class=" form-group row">
                     <label for="harga" class="col-sm-2 col-form-label">Harga</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control <?= ($validation->hasError('harga')) ? 'is-invalid' : ''; ?>" id="harga" name="harga" value="<?= old('harga'); ?>">
+                        <input type="number" class="form-control <?= ($validation->hasError('harga')) ? 'is-invalid' : ''; ?>" id="harga" name="harga" value="<?= (old('harga')) ? old('harga') : $products['harga'] ?>">
                         <div class="invalid-feedback">
                             <?= $validation->getError('harga'); ?>
                         </div>
@@ -29,7 +31,7 @@
                 <div class=" form-group row">
                     <label for="stok" class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control <?= ($validation->hasError('stok')) ? 'is-invalid' : ''; ?>" id="stok" name="stok" value="<?= old('stok'); ?>">
+                        <input type="number" class="form-control <?= ($validation->hasError('stok')) ? 'is-invalid' : ''; ?>" id="stok" name="stok" value="<?= (old('stok')) ? old('stok') : $products['stok'] ?>">
                         <div class="invalid-feedback">
                             <?= $validation->getError('stok'); ?>
                         </div>
@@ -38,7 +40,7 @@
                 <div class=" form-group row">
                     <label for="gambar" class="col-sm-2 col-form-label">Gambar</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control <?= ($validation->hasError('gambar')) ? 'is-invalid' : ''; ?>" id="gambar" name="gambar" value="<?= old('gambar'); ?>">
+                        <input type="text" class="form-control <?= ($validation->hasError('gambar')) ? 'is-invalid' : ''; ?>" id="gambar" name="gambar" value="<?= (old('gambar')) ? old('gambar') : $products['gambar'] ?>">
                         <div class="invalid-feedback">
                             <?= $validation->getError('gambar'); ?>
                         </div>
