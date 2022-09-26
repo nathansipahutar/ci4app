@@ -79,9 +79,8 @@ class Products extends BaseController
             ],
             //gambar disini mengacu kepada name di input (create.php)
             'gambar' => [
-                'rules' => 'uploaded[gambar]|max_size[gambar,1024]]|is_image[gambar]|mime_in[gambar,image/jpg, image/jpeg, image/png]',
+                'rules' => 'max_size[gambar,1024]|is_image[gambar]|mime_in[gambar,image/jpg,image/jpeg,image/png]',
                 'errors' => [
-                    'uploaded' => 'Pilih gambar terlebih dahulu',
                     'max_size' => 'Ukuran gambar terlalu besar',
                     'is_image' => 'Yang anda pilih bukan gambar',
                     'mime_in' => 'Yang anda pilih bukan gambar'
@@ -89,11 +88,25 @@ class Products extends BaseController
             ]
         ])) {
             // gaperlu lagi
-            $validation = \Config\Services::validation();
-            //Dia mengirim data ke session dengan withInput dan membawa nilai validasi dari controler ke products/create.php
-            return redirect()->to('/products/create')->withInput()->with('validation', $validation);
+            // $validation = \Config\Services::validation();
+            // //Dia mengirim data ke session dengan withInput dan membawa nilai validasi dari controler ke products/create.php
+            // return redirect()->to('/products/create')->withInput()->with('validation', $validation);
 
-            // return redirect()->to('/products/create')->withInput();
+            return redirect()->to('/products/create')->withInput();
+        }
+
+        //Ambil Gambar
+        $fileGambar = $this->request->getFile('gambar');
+        //Cek apakah tidak ada gambar yang diupload
+        if ($fileGambar->getError() == 4) {
+            $namaGambar = 'default.png';
+        } else {
+            //Generate nama gambar random
+            $namaGambar = $fileGambar->getRandomName();
+            //pindahkan file ke folder img
+            $fileGambar->move('img', $namaGambar);
+            //ambil nama file 
+            // $namaGambar = $fileGambar->getName();
         }
 
         // dd($this->request->getVar());
@@ -103,7 +116,7 @@ class Products extends BaseController
             'slug' => $slug,
             'harga' => $this->request->getVar('harga'),
             'stok' => $this->request->getVar('stok'),
-            'gambar' => $this->request->getVar('gambar'),
+            'gambar' => $namaGambar
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan!');
@@ -113,6 +126,16 @@ class Products extends BaseController
 
     public function delete($id)
     {
+        // Cari gambar berdasarkan id
+        $products = $this->productsmodel->find($id);
+
+        //Cek jika file gambar default.png
+        if ($products['gambar'] != 'default.png') {
+            //Hapus Gambar
+            unlink('img/' . $products['gambar']);
+        }
+
+
         $this->productsmodel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus!');
         return redirect()->to('/products');
@@ -161,16 +184,34 @@ class Products extends BaseController
                 ]
             ],
             'gambar' => [
-                'rules' => 'required',
+                'rules' => 'max_size[gambar,1024]|is_image[gambar]|mime_in[gambar,image/jpg,image/jpeg,image/png]',
                 'errors' => [
-                    'required' => '{field} product harus diisi,',
+                    'max_size' => 'Ukuran gambar terlalu besar',
+                    'is_image' => 'Yang anda pilih bukan gambar',
+                    'mime_in' => 'Yang anda pilih bukan gambar'
                 ]
             ]
         ])) {
-            $validation = \Config\Services::validation();
+            //GUA HAPUS YA
+            // $validation = \Config\Services::validation();
             //Dia mengirim data ke session dengan withInput dan membawa nilai validasi dari controler ke products/create.php
-            return redirect()->to('/product/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
+            // return redirect()->to('/product/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
+            return redirect()->to('/product/edit/' . $this->request->getVar('slug'))->withInput();
         }
+
+        $fileGambar = $this->request->getFile('gambar');
+        //cek Gambar, apakah tetap gambar lama
+        if ($fileGambar->getError() == 4) {
+            $namaGambar = $this->request->getVar('gambarLama');
+        } else {
+            //generate nama file random
+            $namaGambar = $fileGambar->getRandomName();
+            //pindahkan gambar
+            $fileGambar->move('img', $namaGambar);
+            //hapus file yang lama
+            unlink('img/' . $this->request->getVar('gambarLama'));
+        }
+
 
         $slug = url_title($this->request->getVar('nama'), '-', true);
         $this->productsmodel->save([
@@ -179,7 +220,7 @@ class Products extends BaseController
             'slug' => $slug,
             'harga' => $this->request->getVar('harga'),
             'stok' => $this->request->getVar('stok'),
-            'gambar' => $this->request->getVar('gambar'),
+            'gambar' => $namaGambar
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil diubah!');
