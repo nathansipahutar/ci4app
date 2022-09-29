@@ -17,6 +17,9 @@
                     <a class="nav-link" href="<?= base_url('/products'); ?>">Products</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('/orang'); ?>">Orang</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('/pages/contact'); ?>">Contact Us</a>
                 </li>
                 <li class="nav-item dropdown">

@@ -61,6 +61,10 @@ $routes->get('/product/edit/(:segment)', 'Products::edit/$1');
 //UPDATE
 $routes->post('/product/update/(:segment)', 'Products::update/$1');
 
+
+//PAGE ORANG
+$routes->get('/orang', 'Orang::index');
+
 // $routes->get('/coba', function () {
 //     echo 'Halo';
 // });
