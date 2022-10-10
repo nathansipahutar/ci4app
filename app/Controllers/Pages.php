@@ -39,4 +39,21 @@ class Pages extends BaseController
 
         return view('pages/contact', $data);
     }
+    public function login()
+    {
+        $data = [
+            'title' => 'login',
+            'config' => config('Auth'),
+        ];
+        return view('auth/login', $data);
+    }
+    public function register()
+    {
+        $data['title'] = 'register';
+        return view('auth/register', $data);
+    }
+    public function user()
+    {
+        return view('user/index');
+    }
 }

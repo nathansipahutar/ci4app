@@ -37,6 +37,7 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
 $routes->get('/', 'Pages::index');
 $routes->get('/pages/home', 'Pages::index');
 $routes->get('/pages/about', 'Pages::about');
@@ -65,9 +66,27 @@ $routes->post('/product/update/(:segment)', 'Products::update/$1');
 //PAGE ORANG
 $routes->get('/orang', 'Orang::index');
 
+//LOGIN
+$routes->get('/login', 'Pages::login');
+//APABILA LOGIN SEBAGAI ADMIN. tambah routes baru kalau ada page lain
+$routes->get('/admin', 'Admin::index', ['filter' => 'role:admin']);
+$routes->get('/admin/index', 'Admin::index', ['filter' => 'role:admin']);
+$routes->get('/admin/(:num)', 'Admin::detail/$1', ['filter' => 'role:admin']);
+
+//APABILA LOGIN SEBAGAI USER. tambah routes baru kalau ada page lain
+$routes->get('/user', 'User::index', ['filter' => 'role:user']);
+$routes->get('/user/index', 'User::index', ['filter' => 'role:user']);
+
+//REGISTER
+$routes->get('/register', 'Pages::register');
+
+//HOME USER
+$routes->get('/pages/user', 'Pages::user');
 // $routes->get('/coba', function () {
 //     echo 'Halo';
 // });
+
+
 
 /*
  * --------------------------------------------------------------------

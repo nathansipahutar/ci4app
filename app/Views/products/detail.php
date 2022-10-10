@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<div class="contai">
+<div class="container">
     <div class="row">
         <div class="col">
             <h2 class="mt-2">Detail Komik</h2>
