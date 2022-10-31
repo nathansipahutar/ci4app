@@ -6,10 +6,17 @@ use App\Models\ProductsModel;
 
 class Products extends BaseController
 {
+    private $url = 'https://api.rajaongkir.com/starter/';
+    private $apiKey = '2a9dfab14e094497fa344f8cf2a754f3';
     protected $productsModel;
+
     public function __construct()
     {
+        helper('form');
+        $this->validation = \Config\Services::validation();
         $this->productsmodel = new ProductsModel();
+        $this->session = session();
+        //HAPUS AJA KALAU BIKIN FITUR CRUD ERROR
     }
     public function index()
     {
@@ -215,7 +222,7 @@ class Products extends BaseController
 
         $slug = url_title($this->request->getVar('nama'), '-', true);
         $this->productsmodel->save([
-            'id' => $id,
+            'id_barang' => $id,
             'nama' => $this->request->getVar('nama'),
             'slug' => $slug,
             'harga' => $this->request->getVar('harga'),
@@ -226,5 +233,133 @@ class Products extends BaseController
         session()->setFlashdata('pesan', 'Data berhasil diubah!');
 
         return redirect()->to('/products');
+    }
+
+    public function beli($slug)
+    {
+        $products = $this->productsmodel->getProducts($slug);
+        $provinsi = $this->rajaongkir('province');
+        $data = [
+            'title' => 'Beli Barang',
+            'products' => $this->productsmodel->getProducts($slug),
+            'provinsi' => json_decode($provinsi)->rajaongkir->results,
+        ];
+
+        if ($this->request->getPost()) {
+            $data = $this->request->getPost();
+            $this->validation->run($data, 'transaksi');
+            $errors = $this->validation->getErrors();
+            var_dump($errors);
+
+            if (!$errors) {
+                $transaksiModel = new \App\Models\TransaksiModel();
+                $transaksi = new \App\Entities\Transaksi();
+
+                $transaksi->fill($data);
+                $transaksi->status = 0;
+                $transaksi->id_pelanggan = $this->session->get('logged_in');
+                // $transaksi->created_at = $this->session->get('logged_in');
+                $transaksi->created_date = date("Y-m-d H:i:s");
+
+                $transaksiModel->save($transaksi);
+
+                //ambil id transaksi model, yg diinser berapa
+                $id = $transaksiModel->insertID();
+                //buka view dari controller transaksi
+                $segment = ['transaksi', 'view', $id];
+
+                return redirect()->to(site_url($segment));
+            }
+        }
+        // $provinsi = $this->rajaongkir('province');
+        return view('products/beli', $data);
+    }
+
+    public function getCity()
+    {
+        $id_province = $this->request->getGET('id_province');
+        $data = $this->rajaongkir('city', $id_province);
+        return $this->response->setJSON($data);
+        // if ($this->request->isAJAX()) {
+        //     $id_province = $this->request->getGET('id_province');
+        //     $data = $this->rajaongkir('city', $id_province);
+        //     return $this->response->setJSON($data);
+        // }
+    }
+
+    public function getCost()
+    {
+        if ($this->request->isAJAX()) {
+            $origin = $this->request->getGET('origin');
+            $destination = $this->request->getGET('destination');
+            $weight = $this->request->getGET('weight');
+            $courier = $this->request->getGET('courier');
+            $data = $this->rajaongkircost($origin, $destination, $weight, $courier);
+            return $this->response->setJSON($data);
+        }
+    }
+
+    private function rajaongkircost($origin, $destination, $weight, $courier)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "origin=" . $origin . "&destination=" . $destination . "&weight=" . $weight . "&courier=" . $courier . "",
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded",
+                "key: " . $this->apiKey,
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        // if ($err) {
+        //     echo "cURL Error #:" . $err;
+        // } else {
+        //     echo $response;
+        // }
+
+        return $response;
+    }
+
+    private function rajaongkir($method, $id_province = null)
+    {
+        $endPoint = $this->url . $method;
+
+        if ($id_province != null) {
+            $endPoint = $endPoint . "?province=" . $id_province;
+        }
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $endPoint,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "key: " . $this->apiKey,
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        return $response;
     }
 }

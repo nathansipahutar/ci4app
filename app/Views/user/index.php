@@ -32,7 +32,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <?= $this->endSection('page-content'); ?>

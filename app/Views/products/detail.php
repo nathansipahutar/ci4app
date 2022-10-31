@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h2 class="mt-2">Detail Komik</h2>
+            <h2 class="mt-2">Detail Produk</h2>
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row no-gutters">
                     <div class="col-md-4">
@@ -18,13 +18,12 @@
 
                             <a href="/product/edit/<?= $products['slug']  = isset($products['slug']) ? $products['slug'] : ''; ?>" class="btn btn-warning">Edit</a>
 
-                            <form action="/products/<?= $products['id'] = isset($products['id']) ? $products['id'] : ''; ?>" method="post" class="d-inline">
+                            <form action="/products/<?= $products['id_barang'] = isset($products['id_barang']) ? $products['id_barang'] : ''; ?>" method="post" class="d-inline">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('apakah anda yakin?')">Delete</button>
                             </form>
 
-                            <!-- <a href="/products/delete/<?= $products['id']; ?>" class="btn btn-danger">Delete</a> -->
                             <br><br>
                             <a href="/products">Kembali ke daftar komik</a>
                         </div>

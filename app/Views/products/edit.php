@@ -6,7 +6,7 @@
         <div class="col-8">
             <h2 class="my-3">Form Edit Data Product</h2>
 
-            <form action="/product/update/<?= $products['id']; ?>" method="post" enctype="multipart/form-data">
+            <form action="/product/update/<?= $products['id_barang']; ?>" method="post" enctype="multipart/form-data">
                 <!-- crsf agar form hanya dapat diakses di halaman ini -->
                 <?= csrf_field(); ?>
                 <input type="hidden" name="slug" id="" value="<?= $products['slug']; ?>">

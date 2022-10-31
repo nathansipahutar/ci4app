@@ -39,6 +39,23 @@ class Validation extends BaseConfig
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
 
+    public $transaksi = [
+        'id_barang' => [
+            'rules' => 'required',
+        ],
+        'jumlah' => [
+            'rules' => 'required',
+        ],
+        'total_harga' => [
+            'rules' => 'required',
+        ],
+        'alamat' => [
+            'rules' => 'required',
+        ],
+        'ongkir' => [
+            'rules' => 'required',
+        ],
+    ];
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------

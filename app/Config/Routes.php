@@ -48,7 +48,7 @@ $routes->get('/products/create', 'Products::create');
 
 $routes->post('/products/save', 'Products::save');
 
-$routes->get('/products/(:any)', 'Products::detail/$1');
+$routes->get('/products/(:segment)', 'Products::detail/$1');
 
 //CARA DELETE DENGAN KONVENSIONAL
 $routes->get('/products/delete/(:segment)', 'Products::delete/$1');
@@ -68,10 +68,12 @@ $routes->get('/orang', 'Orang::index');
 
 //LOGIN
 $routes->get('/login', 'Pages::login');
+
 //APABILA LOGIN SEBAGAI ADMIN. tambah routes baru kalau ada page lain
 $routes->get('/admin', 'Admin::index', ['filter' => 'role:admin']);
 $routes->get('/admin/index', 'Admin::index', ['filter' => 'role:admin']);
 $routes->get('/admin/(:num)', 'Admin::detail/$1', ['filter' => 'role:admin']);
+$routes->get('/admin/products', 'Admin::products', ['filter' => 'role:admin']);
 
 //APABILA LOGIN SEBAGAI USER. tambah routes baru kalau ada page lain
 $routes->get('/user', 'User::index', ['filter' => 'role:user']);
@@ -86,7 +88,16 @@ $routes->get('/pages/user', 'Pages::user');
 //     echo 'Halo';
 // });
 
+//TRANSAKSI
+$routes->get('/product/beli/(:segment)', 'Products::beli/$1');
+$routes->post('/Products/beli/(:segment)', 'Products::beli/$1');
+$routes->get('/transaksi/view/(:num)', 'Transaksi::view/$1');
 
+
+//API
+$routes->get('/product/getCity', 'Products::getCity');
+//getCOST
+$routes->get('/product/getCost', 'Products::getCost');
 
 /*
  * --------------------------------------------------------------------

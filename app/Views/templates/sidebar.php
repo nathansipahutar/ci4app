@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">My Profile</div>
+        <div class="sidebar-brand-text mx-3">Bunch of Gifts</div>
     </a>
 
     <!-- ADMIN -->
@@ -26,6 +26,11 @@
             <a class="nav-link" href="<?= base_url('admin'); ?>">
                 <i class="fa-solid fa-users"></i>
                 <span>Manage Users</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('/admin/products'); ?>">
+                <i class="fa-solid fa-shop"></i>
+                <span>Manage Products</span></a>
         </li>
 
     <?php endif; ?>
@@ -53,7 +58,7 @@
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="tables.html">
-            <i class="fa-solid fa-store"></i>
+            <i class="fa-solid fa-tag"></i>
             <span>Products</span></a>
     </li>
 

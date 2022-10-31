@@ -1,30 +1,9 @@
-<?= $this->extend('layout/template'); ?>
+<?= $this->extend('templates/index'); ?>
 
-<?= $this->section('content'); ?>
+<?= $this->section('page-content'); ?>
 <?= $i = 1; ?>
 <div class="container">
     <div class="row">
-        <!-- CARDS -->
-        <?php foreach ($products as $p) : ?>
-            <div class="col-4">
-                <div class="card text-center">
-                    <div class="card-header">
-                        <span class="text-success">
-                            <strong><?= $p['nama']; ?></strong>
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <img src="/img/<?= $p['gambar']; ?>" alt="Products picture" class="img-thumbnail" style="max-width: 150px">
-                        <h5 class="mt-3 text-success"><?= "Rp " .  $p['harga']; ?></h5>
-                        <p class="text-info">Stok : <?= $p['stok']; ?></p>
-                    </div>
-                    <div class="card-footer">
-                        <a style="width: 100%;" class="btn btn-success" href="/product/beli/<?= $p['slug']; ?>">Beli</a>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
-        <!-- NORMAL -->
         <div class="col">
             <a href="/products/create" class="btn btn-primary mt-3">Tambah Data Product</a>
             <h1 class="mt-2">Daftar Product</h1>
@@ -44,7 +23,6 @@
                 </thead>
 
                 <tbody>
-
                     <?php foreach ($products as $p) : ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
@@ -60,4 +38,4 @@
         </div>
     </div>
 </div>
-<?= $this->endSection(); ?>
+<?= $this->endSection('page-content'); ?>

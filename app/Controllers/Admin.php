@@ -2,14 +2,18 @@
 
 namespace App\Controllers;
 
+use App\Models\ProductsModel;
+
 class Admin extends BaseController
 {
     protected $db, $builder;
+    protected $productsModel;
 
     public function __construct()
     {
         $this->db      = \Config\Database::connect();
         $this->builder = $this->db->table('users');
+        $this->productsmodel = new ProductsModel();
     }
     public function index()
     {
@@ -46,5 +50,21 @@ class Admin extends BaseController
         }
 
         return view('admin/detail', $data);
+    }
+
+    //EDIT PRODUCT
+    public function products()
+    {
+        // $products = $this->productsmodel->findAll();
+
+        $data = [
+            'title' => 'Daftar Product',
+            'products' => $this->productsmodel->getProducts()
+        ];
+
+        // connect db pake model
+        // $productsmodel = new ProductsModel();
+
+        return view('admin/products', $data);
     }
 }
