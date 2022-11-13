@@ -10,7 +10,7 @@ class ProductsModel extends Model
     protected $useTimestamps = true;
     protected $primaryKey = 'id_barang';
     //Allowed Fields adalah kolom di tabel yang bisa di ubah2
-    protected $allowedFields = ['nama', 'slug', 'harga', 'stok', 'gambar', 'deskripsi'];
+    protected $allowedFields = ['nama', 'slug', 'kategori', 'harga', 'stok', 'gambar', 'deskripsi'];
 
     public function getProducts($slug = false)
     {

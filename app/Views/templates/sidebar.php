@@ -32,6 +32,11 @@
                 <i class="fa-solid fa-shop"></i>
                 <span>Manage Products</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('/transaksi/index'); ?>">
+                <i class="fa-solid fa-shop"></i>
+                <span>Manage Transaction</span></a>
+        </li>
 
     <?php endif; ?>
     <!-- END ADMIN -->

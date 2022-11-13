@@ -61,7 +61,6 @@ class Products extends BaseController
 
     public function save()
     {
-
         //Validasi input agar input tidak kosong
         if (!$this->validate([
             //kalau mau nambah rules baru, tambah pake |. misal required|numeric
@@ -249,21 +248,20 @@ class Products extends BaseController
             $data = $this->request->getPost();
             $this->validation->run($data, 'transaksi');
             $errors = $this->validation->getErrors();
-            var_dump($errors);
 
             if (!$errors) {
                 $transaksiModel = new \App\Models\TransaksiModel();
                 $transaksi = new \App\Entities\Transaksi();
 
                 $transaksi->fill($data);
-                $transaksi->status = 0;
+                $transaksi->status = 'Belum dibayar';
                 $transaksi->id_pelanggan = $this->session->get('logged_in');
                 // $transaksi->created_at = $this->session->get('logged_in');
                 $transaksi->created_date = date("Y-m-d H:i:s");
 
                 $transaksiModel->save($transaksi);
 
-                //ambil id transaksi model, yg diinser berapa
+                //ambil id transaksi model, yg diinsert berapa
                 $id = $transaksiModel->insertID();
                 //buka view dari controller transaksi
                 $segment = ['transaksi', 'view', $id];

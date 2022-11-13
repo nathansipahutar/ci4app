@@ -32,17 +32,6 @@
                                         <input type="text" class="form-control form-control-user <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="<?= lang('Auth.username') ?>" value="<?= old('username') ?>">
                                     </div>
 
-                                    <!-- FULL NAME -->
-                                    <!-- Kalau error, liat di public $validFields. comment nohp dkk (semua selain username dan pass). GA GA GA SALAH -->
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user <?php if (session('errors.fullname')) : ?>is-invalid<?php endif ?>" name="fullname" placeholder="Full Name">
-                                    </div>
-                                    <!-- NOMOR HP -->
-                                    <!-- Kalau error, liat di public $validFields. comment nohp dkk (semua selain username dan pass) GA GA GA SALAH -->
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user <?php if (session('errors.nohp')) : ?>is-invalid<?php endif ?>" name="nohp" placeholder="Nomor HP">
-                                    </div>
-
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <input type="password" class="form-control form-control-user <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" name="password" placeholder="<?= lang('Auth.password') ?>" autocomplete="off">

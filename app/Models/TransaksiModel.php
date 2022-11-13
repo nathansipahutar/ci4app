@@ -25,5 +25,13 @@ class TransaksiModel extends Model
         return $this->where(['$id_pelanggan' => $id_pelanggan])->first();
     }
 
+    public function getTransaction($id_transaksi = false)
+    {
+        if ($id_transaksi == false) {
+            return $this->findAll();
+        }
+
+        return $this->where(['id_transaksi' => $id_transaksi])->first();
+    }
     protected $returnType = 'App\Entities\Transaksi';
 }

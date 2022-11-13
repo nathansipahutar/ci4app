@@ -6,7 +6,7 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-section{
+header{
     position: relative;
     width: 100%;
     min-height: 50vh;
@@ -15,6 +15,7 @@ section{
     justify-content: space-between;
     align-items: center;
     background: #fff;
+    margin-bottom: 200px;
 }
 .content{
     position: relative;
@@ -119,4 +120,12 @@ section{
     height: 100%;
     background: #017143;
     clip-path: circle(600px at right 800px);
+}
+
+main{
+    margin-bottom: 200px;
+}
+
+footer .sticky-footer{
+    background-color: blue;
 }

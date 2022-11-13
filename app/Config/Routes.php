@@ -82,8 +82,11 @@ $routes->get('/user/index', 'User::index', ['filter' => 'role:user']);
 //REGISTER
 $routes->get('/register', 'Pages::register');
 
+//EDIT PROFILE
+$routes->get('/register', 'Pages::register');
+$routes->post('/register', 'Pages::registerUser');
+
 //HOME USER
-$routes->get('/pages/user', 'Pages::user');
 // $routes->get('/coba', function () {
 //     echo 'Halo';
 // });
@@ -92,7 +95,19 @@ $routes->get('/pages/user', 'Pages::user');
 $routes->get('/product/beli/(:segment)', 'Products::beli/$1');
 $routes->post('/Products/beli/(:segment)', 'Products::beli/$1');
 $routes->get('/transaksi/view/(:num)', 'Transaksi::view/$1');
+$routes->get('/transaksi/index', 'Transaksi::index');
+$routes->get('/transaksi/sendEmail', 'Transaksi::sendEmail');
+$routes->get('/transaksi/invoice/(:num)', 'Transaksi::invoice');
+$routes->get('/transaksi/user', 'Transaksi::user');
 
+//--ADMIN--
+//EDIT PESANAN
+$routes->get('/admin/transaksi/edit/(:segment)', 'Admin::edit/$1');
+//UPDATE PESANAN
+$routes->post('/admin/transaksi/update/(:segment)', 'Admin::update/$1');
+
+//SEND EMAIL INVOICE
+$routes->get('/product/getCost', 'Products::getCost');
 
 //API
 $routes->get('/product/getCity', 'Products::getCity');

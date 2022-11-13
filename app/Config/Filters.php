@@ -74,6 +74,6 @@ class Filters extends BaseConfig
      */
     public $filters = [
         //controller products dan orang harus login terlebihd ahulu
-        'login' => ['before' => ['products', 'orang', 'user', 'admin']],
+        'login' => ['before' => ['products', 'orang', 'user', 'admin', 'transaksi/user']],
     ];
 }

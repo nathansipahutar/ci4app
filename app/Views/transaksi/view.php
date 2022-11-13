@@ -1,6 +1,8 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
-<h4>invoice</h4>
+<h4>Satu langkah lagi untuk menyelesaikan transaksi</h4>
+<p>Berikut adalah detail barang yang telah dibeli</p>
+
 <table>
     <tr>
         <td>Barang</td>
@@ -20,11 +22,14 @@
     </tr>
     <tr>
         <td>No Transaksi</td>
-        <td>TRX - <?= $transaksi->id; ?></td>
+        <td>TRX - <?= $transaksi->id_transaksi; ?></td>
     </tr>
     <tr>
         <td>Total Harga</td>
         <td><?= $transaksi->total_harga; ?></td>
     </tr>
 </table>
+
+<p>Klik link berikut untuk menyelesaikan order</p>
+<a href="<?= site_url('transaksi/user/'); ?>" class="btn btn-success">Bayar</a>
 <?= $this->endSection(); ?>
