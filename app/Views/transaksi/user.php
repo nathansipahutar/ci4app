@@ -29,6 +29,7 @@
                 <td>
                     <a href="<?= site_url('transaksi/view/' . $transaksi->id_transaksi); ?>" class="btn btn-primary">Bayar</a>
                     <a href="<?= site_url('transaksi/invoice/' . $transaksi->id_transaksi); ?>" class="btn btn-info">Invoice</a>
+                    <a href="<?= site_url('transaksi/lacakResi/' . $transaksi->id_transaksi); ?>" class="btn btn-info">Lacak Resi</a>
                 </td>
             </tr>
         <?php endforeach ?>

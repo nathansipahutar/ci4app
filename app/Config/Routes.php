@@ -94,10 +94,16 @@ $routes->post('/register', 'Pages::registerUser');
 //TRANSAKSI
 $routes->get('/product/beli/(:segment)', 'Products::beli/$1');
 $routes->post('/Products/beli/(:segment)', 'Products::beli/$1');
+
+$routes->get('/product/beli/jemput/(:segment)', 'Products::beliJemput/$1');
+$routes->get('/product/beli/antar/(:segment)', 'Products::beliAntar/$1');
+$routes->post('/Products/beli/jemput/(:segment)', 'Products::beliJemput/$1');
+$routes->post('/Products/beli/antar/(:segment)', 'Products::beliAntar/$1');
 $routes->get('/transaksi/view/(:num)', 'Transaksi::view/$1');
 $routes->get('/transaksi/index', 'Transaksi::index');
 $routes->get('/transaksi/sendEmail', 'Transaksi::sendEmail');
 $routes->get('/transaksi/invoice/(:num)', 'Transaksi::invoice');
+$routes->get('/transaksi/lacakResi/(:num)', 'Transaksi::lacakResi');
 $routes->get('/transaksi/user', 'Transaksi::user');
 
 //--ADMIN--
@@ -105,6 +111,10 @@ $routes->get('/transaksi/user', 'Transaksi::user');
 $routes->get('/admin/transaksi/edit/(:segment)', 'Admin::edit/$1');
 //UPDATE PESANAN
 $routes->post('/admin/transaksi/update/(:segment)', 'Admin::update/$1');
+
+//LAPORAN PENJUALAN
+$routes->get('/admin/laporanPenjualan', 'Admin::laporanPenjualan');
+$routes->post('/admin/laporanPenjualan', 'Admin::filterLaporanPenjualan');
 
 //SEND EMAIL INVOICE
 $routes->get('/product/getCost', 'Products::getCost');

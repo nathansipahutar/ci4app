@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\TransaksiModel;
 use TCPDF;
 
 class Transaksi extends BaseController
@@ -14,6 +15,8 @@ class Transaksi extends BaseController
 
         //EMAIL INVOICE
         $this->email = \Config\Services::email();
+
+        $this->transaksiModel = new TransaksiModel();
     }
 
     public function view($id)
@@ -138,6 +141,24 @@ class Transaksi extends BaseController
         // //TAMBAHIN FLASH MESSAGE EMAIL BERHASIL DIKIRIM. URGENT
         // //END EMAIL INVOICE
     }
+
+    //LACAK RESI
+    public function lacakResi()
+    {
+        $id = $this->request->uri->getSegment(3);
+        $transaksiModel = new \App\Models\TransaksiModel();
+
+        $transaksi = $this->transaksiModel->getTransaction($id);
+
+        // dd($transaksi);
+        $data = [
+            'title' => 'Lacak Resi',
+            'transaksi' => $transaksi
+        ];
+        return view('transaksi/lacakResi', $data);
+    }
+
+
 
     //EMAIL INVOICE
     // private function sendEmail($attachment, $to, $title, $message)

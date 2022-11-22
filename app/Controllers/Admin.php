@@ -195,4 +195,51 @@ class Admin extends BaseController
 
         return redirect()->to('/transaksi/index');
     }
+
+    public function laporanPenjualan()
+    {
+        $data['title'] = 'Laporan Penjualan';
+
+        $transaksiModel = new \App\Models\TransaksiModel();
+        $id = $this->session->get('logged_in');
+        // $model = $transaksiModel->where('id_transaksi', 2);
+        // $model = $transaksiModel->findAll();
+
+        $model = $transaksiModel->join('users', 'users.id=transaksi.id_pelanggan')
+            ->join('products', 'products.id_barang=transaksi.id_barang')
+            ->where('transaksi.created_at' <= 'txtTglAwal')
+            ->findAll();
+
+        // var_dump($model);
+        $productsModel = new \App\Models\ProductsModel();
+        $products = $productsModel->getProducts();
+
+        return view('admin/laporanPenjualan', [
+            'model' => $model,
+            'products' => $products,
+            'title' => 'List Transaksi',
+        ]);
+    }
+
+    public function filterLaporanPenjualan()
+    {
+        $transaksiModel = new \App\Models\TransaksiModel();
+        $id = $this->session->get('logged_in');
+        // $model = $transaksiModel->where('id_transaksi', 2);
+        // $model = $transaksiModel->findAll();
+
+        $model = $transaksiModel->join('users', 'users.id=transaksi.id_pelanggan')
+            ->join('products', 'products.id_barang=transaksi.id_barang')
+            ->where('transaksi.created_at' <= 'txtTglAwal')
+            ->findAll();
+
+        // var_dump($model);
+        $productsModel = new \App\Models\ProductsModel();
+        $products = $productsModel->getProducts();
+        return view('admin/cobaLaporan', [
+            'model' => $model,
+            'products' => $products,
+            'title' => 'List Transaksi',
+        ]);
+    }
 }

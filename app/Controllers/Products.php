@@ -21,10 +21,13 @@ class Products extends BaseController
     public function index()
     {
         // $products = $this->productsmodel->findAll();
-
+        $products_snack = $this->productsmodel->getProductsSnack();
+        $products_snack = $this->productsmodel->getProductsSnack();
         $data = [
             'title' => 'Daftar Product',
-            'products' => $this->productsmodel->getProducts()
+            'products' => $this->productsmodel->getProducts(),
+            'products_snack' => $this->productsmodel->getProductsSnack(),
+            'products_rajutan' => $this->productsmodel->getProductsRajutan()
         ];
 
         // connect db pake model
@@ -234,6 +237,7 @@ class Products extends BaseController
         return redirect()->to('/products');
     }
 
+    //HAPUS
     public function beli($slug)
     {
         $products = $this->productsmodel->getProducts($slug);
@@ -271,6 +275,83 @@ class Products extends BaseController
         }
         // $provinsi = $this->rajaongkir('province');
         return view('products/beli', $data);
+    }
+
+    public function beliJemput($slug)
+    {
+        $products = $this->productsmodel->getProducts($slug);
+        $provinsi = $this->rajaongkir('province');
+        $data = [
+            'title' => 'Beli Barang',
+            'products' => $this->productsmodel->getProducts($slug),
+            'provinsi' => json_decode($provinsi)->rajaongkir->results,
+        ];
+
+        if ($this->request->getPost()) {
+            $data = $this->request->getPost();
+            $this->validation->run($data, 'transaksi');
+            $errors = $this->validation->getErrors();
+
+            if (!$errors) {
+                $transaksiModel = new \App\Models\TransaksiModel();
+                $transaksi = new \App\Entities\Transaksi();
+
+                $transaksi->fill($data);
+                $transaksi->status = 'Belum dibayar';
+                $transaksi->id_pelanggan = $this->session->get('logged_in');
+                // $transaksi->created_at = $this->session->get('logged_in');
+                $transaksi->created_date = date("Y-m-d H:i:s");
+
+                $transaksiModel->save($transaksi);
+
+                //ambil id transaksi model, yg diinsert berapa
+                $id = $transaksiModel->insertID();
+                //buka view dari controller transaksi
+                $segment = ['transaksi', 'view', $id];
+
+                return redirect()->to(site_url($segment));
+            }
+        }
+        // $provinsi = $this->rajaongkir('province');
+        return view('products/beliJemput', $data);
+    }
+    public function beliAntar($slug)
+    {
+        $products = $this->productsmodel->getProducts($slug);
+        $provinsi = $this->rajaongkir('province');
+        $data = [
+            'title' => 'Beli Barang',
+            'products' => $this->productsmodel->getProducts($slug),
+            'provinsi' => json_decode($provinsi)->rajaongkir->results,
+        ];
+
+        if ($this->request->getPost()) {
+            $data = $this->request->getPost();
+            $this->validation->run($data, 'transaksi');
+            $errors = $this->validation->getErrors();
+
+            if (!$errors) {
+                $transaksiModel = new \App\Models\TransaksiModel();
+                $transaksi = new \App\Entities\Transaksi();
+
+                $transaksi->fill($data);
+                $transaksi->status = 'Belum dibayar';
+                $transaksi->id_pelanggan = $this->session->get('logged_in');
+                // $transaksi->created_at = $this->session->get('logged_in');
+                $transaksi->created_date = date("Y-m-d H:i:s");
+
+                $transaksiModel->save($transaksi);
+
+                //ambil id transaksi model, yg diinsert berapa
+                $id = $transaksiModel->insertID();
+                //buka view dari controller transaksi
+                $segment = ['transaksi', 'view', $id];
+
+                return redirect()->to(site_url($segment));
+            }
+        }
+        // $provinsi = $this->rajaongkir('province');
+        return view('products/beliAntar', $data);
     }
 
     public function getCity()

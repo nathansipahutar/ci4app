@@ -20,4 +20,12 @@ class ProductsModel extends Model
 
         return $this->where(['slug' => $slug])->first();
     }
+    public function getProductsSnack()
+    {
+        return $this->where('kategori', 'bouque')->findAll();
+    }
+    public function getProductsRajutan()
+    {
+        return $this->where('kategori', 'rajutan')->findAll();
+    }
 }
