@@ -6,6 +6,11 @@
     vertical-align: middle;
 }
 
+/* CEK PEMBAYARAN */
+.container-cekPembayaran{
+  margin-left: 20px;
+}
+
 .footer-16371 a {
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;

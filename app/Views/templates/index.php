@@ -19,6 +19,10 @@
     <link href="<?= base_url(); ?>/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/home.css">
+
+    <!-- Bootstrap v5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
     <script src="https://kit.fontawesome.com/2ac80a6632.js" crossorigin="anonymous"></script>
 </head>
 
@@ -38,7 +42,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?= $this->include('templates/topbar'); ?>
+
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -52,7 +56,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website <?= date('Y'); ?></span>
+                        <span>Copyright &copy; Bunch of GIfts <?= date('Y'); ?></span>
                     </div>
                 </div>
             </footer>
@@ -97,7 +101,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url(); ?>/js/sb-admin-2.min.js"></script>
-
+    <?= $this->renderSection('script') ?>
 </body>
 
 </html>

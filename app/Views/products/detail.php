@@ -14,7 +14,6 @@
                         <div class="card-body">
                             <h5 class="card-title"><?= $products['nama'] = isset($products['nama']) ? $products['nama'] : ''; ?></h5>
                             <p class="card-text"><b><?= $products['harga'] = isset($products['harga']) ? $products['harga'] : ''; ?></b></p>
-                            <p class="card-text"><small class="text-muted">Stock = <?= $products['stok'] = isset($products['stok']) ? $products['stok'] : ''; ?></small></p>
 
                             <a href="/product/edit/<?= $products['slug']  = isset($products['slug']) ? $products['slug'] : ''; ?>" class="btn btn-warning">Edit</a>
 

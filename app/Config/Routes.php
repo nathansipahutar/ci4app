@@ -48,6 +48,7 @@ $routes->get('/products/create', 'Products::create');
 
 $routes->post('/products/save', 'Products::save');
 
+
 $routes->get('/products/(:segment)', 'Products::detail/$1');
 
 //CARA DELETE DENGAN KONVENSIONAL
@@ -67,17 +68,34 @@ $routes->post('/product/update/(:segment)', 'Products::update/$1');
 $routes->get('/orang', 'Orang::index');
 
 //LOGIN
-$routes->get('/login', 'Pages::login');
+$routes->get('/login', 'Auth::login');
+$routes->post('/valid_login', 'Auth::valid_login');
+$routes->get('/register', 'Auth::register');
+$routes->post('/valid_register', 'Auth::valid_register');
+$routes->get('/emailValidation/(:segment)', 'Auth::emailValidation/$1');
+$routes->get('/logout', 'Auth::logout');
+//PRODUCTS
+$routes->get('/product/snack', 'Products::snack');
+$routes->get('/product/rajutan', 'Products::rajutan');
+
+//LOGIN FINAL
+// $routes->get('/auths/login', 'Auth::login');
+// $routes->post('/auths/valid_login', 'Auth::valid_login');
+// $routes->get('/auths/register', 'Auth::register');
+// $routes->post('/auths/valid_register', 'Auth::valid_register');
+// $routes->get('/auths/logout', 'Auth::logout');
 
 //APABILA LOGIN SEBAGAI ADMIN. tambah routes baru kalau ada page lain
-$routes->get('/admin', 'Admin::index', ['filter' => 'role:admin']);
-$routes->get('/admin/index', 'Admin::index', ['filter' => 'role:admin']);
-$routes->get('/admin/(:num)', 'Admin::detail/$1', ['filter' => 'role:admin']);
-$routes->get('/admin/products', 'Admin::products', ['filter' => 'role:admin']);
+$routes->get('/admin', 'Admin::index');
+$routes->get('/admin/index', 'Admin::index');
+$routes->get('/admin/(:num)', 'Admin::detail/$1');
+$routes->get('/admin/products', 'Admin::products');
 
 //APABILA LOGIN SEBAGAI USER. tambah routes baru kalau ada page lain
-$routes->get('/user', 'User::index', ['filter' => 'role:user']);
-$routes->get('/user/index', 'User::index', ['filter' => 'role:user']);
+$routes->get('/user', 'User::index');
+$routes->get('/user/edit', 'User::edit');
+$routes->post('/user/update/(:segment)', 'User::update/$1');
+
 
 //REGISTER
 $routes->get('/register', 'Pages::register');
@@ -94,27 +112,48 @@ $routes->post('/register', 'Pages::registerUser');
 //TRANSAKSI
 $routes->get('/product/beli/(:segment)', 'Products::beli/$1');
 $routes->post('/Products/beli/(:segment)', 'Products::beli/$1');
+$routes->get('/product/beli2/(:segment)', 'Products::beli2/$1');
+$routes->post('/Products/beli2/(:segment)', 'Products::beli2/$1');
+$routes->post('/products/saveJemput', 'Products::saveJemput');
 
 $routes->get('/product/beli/jemput/(:segment)', 'Products::beliJemput/$1');
-$routes->get('/product/beli/antar/(:segment)', 'Products::beliAntar/$1');
 $routes->post('/Products/beli/jemput/(:segment)', 'Products::beliJemput/$1');
+$routes->get('/product/beli/antar/(:segment)', 'Products::beliAntar/$1');
 $routes->post('/Products/beli/antar/(:segment)', 'Products::beliAntar/$1');
 $routes->get('/transaksi/view/(:num)', 'Transaksi::view/$1');
+$routes->post('transaksi/update/(:num)', 'Transaksi::update/$1');
+//CEK TRANSAKSI UNTUK ADMIN
 $routes->get('/transaksi/index', 'Transaksi::index');
 $routes->get('/transaksi/sendEmail', 'Transaksi::sendEmail');
 $routes->get('/transaksi/invoice/(:num)', 'Transaksi::invoice');
 $routes->get('/transaksi/lacakResi/(:num)', 'Transaksi::lacakResi');
+
+//TRANSAKSI PELANGGAN
 $routes->get('/transaksi/user', 'Transaksi::user');
+$routes->delete('/transaksi/(:num)', 'Transaksi::delete/$1');
+
+//PELANGGAN BAYAR
+$routes->get('/transaksi/bayar/(:num)', 'Transaksi::bayar/$1');
+$routes->post('/transaksi/submitBayar/(:num)', 'Transaksi::submitBayar/$1');
 
 //--ADMIN--
 //EDIT PESANAN
-$routes->get('/admin/transaksi/edit/(:segment)', 'Admin::edit/$1');
-//UPDATE PESANAN
-$routes->post('/admin/transaksi/update/(:segment)', 'Admin::update/$1');
+$routes->get('/admin/transaksi/inputResi/(:segment)', 'Admin::inputResi/$1');
+$routes->post('/admin/transaksi/simpanResi/(:segment)', 'Admin::simpanResi/$1');
+//CEK PEMBAYARAN
+$routes->get('/admin/cekPembayaran/(:num)', 'Admin::cekPembayaran/$1');
+$routes->post('/admin/prosesProduk/(:num)', 'Admin::prosesProduk/$1');
+
+//COBA PAGINATE LAPORAN
+$routes->get('/admin/laporan', 'Admin::laporan');
 
 //LAPORAN PENJUALAN
-$routes->get('/admin/laporanPenjualan', 'Admin::laporanPenjualan');
-$routes->post('/admin/laporanPenjualan', 'Admin::filterLaporanPenjualan');
+// $routes->get('admin/laporan', 'Admin::laporan');
+// $routes->post('admin/laporan', 'Admin::laporan');
+$routes->get('admin/cobaLaporan', 'Admin::cobaLaporan');
+$routes->post('admin/cobaLaporan', 'Admin::cobaLaporan');
+// $routes->get('/admin/laporanPenjualan', 'Admin::laporanPenjualan');
+// $routes->post('/admin/laporanPenjualan', 'Admin::filterLaporanPenjualan');
 
 //SEND EMAIL INVOICE
 $routes->get('/product/getCost', 'Products::getCost');
@@ -123,6 +162,13 @@ $routes->get('/product/getCost', 'Products::getCost');
 $routes->get('/product/getCity', 'Products::getCity');
 //getCOST
 $routes->get('/product/getCost', 'Products::getCost');
+
+//ADMIN GRAFIK
+$routes->match(['get', 'post'], 'admin/chart', 'Admin::chart');
+
+
+
+
 
 /*
  * --------------------------------------------------------------------

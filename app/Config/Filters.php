@@ -23,9 +23,10 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'login'      => \Myth\Auth\Filters\LoginFilter::class,
-        'role'       => \Myth\Auth\Filters\RoleFilter::class,
-        'permission' => \Myth\Auth\Filters\PermissionFilter::class,
+        // MYTH/AUTH HAPUS
+        // 'login'      => \Myth\Auth\Filters\LoginFilter::class,
+        // 'role'       => \Myth\Auth\Filters\RoleFilter::class,
+        // 'permission' => \Myth\Auth\Filters\PermissionFilter::class,
     ];
 
     /**
@@ -74,6 +75,6 @@ class Filters extends BaseConfig
      */
     public $filters = [
         //controller products dan orang harus login terlebihd ahulu
-        'login' => ['before' => ['products', 'orang', 'user', 'admin', 'transaksi/user']],
+        // 'login' => ['before' => ['products', 'orang', 'user', 'admin', 'transaksi/user']],
     ];
 }

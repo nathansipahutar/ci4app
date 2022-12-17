@@ -27,6 +27,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
+
+
     <!-- Style CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <title><?= $title; ?></title>
@@ -91,10 +93,26 @@
 
             gambarLabel.textContent = gambar.files[0].name;
 
-            const fileGambar = new FileReader();
+            const fileBuktiBayar = new FileReader();
             fileGambar.readAsDataURL(gambar.files[0]);
 
             fileGambar.onload = function(e) {
+                imgPreview.src = e.target.result;
+            }
+        }
+
+        function previewImgBayar() {
+            const gambarBuktiBayar = document.querySelector('#bukti_bayar');
+            const gambarLabelBayar = document.querySelector('.custom-file-label');
+            const imgPreview = document.querySelector('.img-preview');
+
+            gambarLabelBayar.textContent = gambarBuktiBayar.files[0].name;
+
+            const fileBuktiBayar = new FileReader();
+
+            fileBuktiBayar.readAsDataURL(gambarBuktiBayar.files[0]);
+
+            fileBuktiBayar.onload = function(e) {
                 imgPreview.src = e.target.result;
             }
         }

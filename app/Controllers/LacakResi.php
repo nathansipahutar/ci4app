@@ -17,6 +17,9 @@ class LacakResi extends BaseController
     }
     public function index()
     {
+        if (!$this->session->has('isLogin')) {
+            return redirect()->to('/login');
+        }
         $data = [
             'title' => 'Lacak Resi',
             'transaksi' => $this->transaksiModel->findAll()

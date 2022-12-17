@@ -1,72 +1,55 @@
 <?= $this->extend('templates/index'); ?>
 
 <?= $this->section('page-content'); ?>
+<a href="/admin/laporan">BACK</a>
+<div class='container' style='margin-top: 20px;'>
 
-<?php
-$sqlPeriode = "";
-$awalTgl = "";
-$akhirTgl = "";
-$tglAwal = "";
-$tglAkhir = "";
+    <!-- Search form -->
+    <form method='get' action="laporan" id="searchForm">
+        <input type='date' name='dari' value='<?= $dari ?>'>
+        <input type='date' name='ke' value='<?= $ke ?>'>
+        <input type='button' id='btnsearch' value='Submit' onclick='document.getElementById("searchForm").submit();'>
+    </form>
+    <br />
 
-if (isset($_POST['btnTampil'])) {
-    $tglAwal = isset($_POST['txtTglAwal']) ? $_POST['txtTglAwal'] : "01-" . date('m-Y');
-    $tglAkhir = isset($_POST['txtTglAkhir']) ? $_POST['txtTglAkhir'] : date('d-m-Y');
-    $sqlPeriode = " where A.tglpesanan BETWEEN '" . $tglAwal . "' AND '" . $tglAkhir . "'";
-} else {
-    $awalTgl = "01-" . date('m-Y');
-    $akhirTgl = date('d-m-Y');
-
-    $sqlPeriode = " where A.tglpesanan BETWEEN '" . $awalTgl . "' AND '" . $akhirTgl . "'";
-}
-?>
-
-<main class="page shopping-cart-page">
-    <div class="container-fluid">
-        <h3 class="text-dark mb-4">Data Pemesanan</h3>
-        <h4>Periode Tanggal <b><?php echo ($tglAwal); ?></b> s/d <b><?php echo ($tglAkhir); ?></b></h4>
-        <div class="card shadow">
-            <div class="card-header py-3">
-
-            </div>
-            <div class="card-body">
-                <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" name="form10" target="_self">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <input type="date" name="txtTglAwal" class="form-control" value="<?php echo $awalTgl; ?>" size="10" id="">
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="date" name="txtTglAkhir" class="form-control" value="<?php echo $akhirTgl; ?>" size="10" id="">
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="submit" name="btnTampil" class="btn btn-success" value="Tampilkan" id="">
-                        </div>
-                    </div>
-                </form>
-
-                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                    <table class="table dataTable my-0" id="dataTable1">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>ID Pesanan</th>
-                                <th>Tanggal Pesanan</th>
-                                <th>Pembeli</th>
-                                <th>Produk</th>
-                                <th>Status</th>
-                                <th>Harga</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $sql = "SELECT A.*, B."
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-hover" border='1' style='border-collapse: collapse;'>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>ID Transaksi</th>
+                        <th>Produk</th>
+                        <th>Pembeli</th>
+                        <th>Total Harga</th>
+                        <th>Status</th>
+                        <th>Tanggal Transaksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $no = 1 + (10 * ($currentPage - 1));
+                    foreach ($transaksi as $transaksi) {
+                        echo "<tr>";
+                        echo "<td>" . $no++ . "</td>";
+                        echo "<td>" . $transaksi->id_transaksi . "</td>";
+                        echo "<td>" . $transaksi->nama . "</td>";
+                        echo "<td>" . $transaksi->username . "</td>";
+                        echo "<td>" . $transaksi->total_harga . "</td>";
+                        echo "<td>" . $transaksi->status . "</td>";
+                        echo "<td>" . $transaksi->created_at . "</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
-</main>
-<?= $this->endSection(); ?>
+
+    <!-- Paginate -->
+    <div style='margin-top: 10px;'>
+        <?= $pager->links() ?>
+    </div>
+
+</div>
+<?= $this->endSection('page-content'); ?>

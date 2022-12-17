@@ -18,8 +18,15 @@ class Products extends BaseController
         $this->session = session();
         //HAPUS AJA KALAU BIKIN FITUR CRUD ERROR
     }
-    public function index()
+
+    //Tampilan list produk
+    public function snack()
     {
+        //cek apakah ada session bernama isLogin
+        if (!$this->session->has('isLogin')) {
+            return redirect()->to('/login');
+        }
+
         // $products = $this->productsmodel->findAll();
         $products_snack = $this->productsmodel->getProductsSnack();
         $products_snack = $this->productsmodel->getProductsSnack();
@@ -27,15 +34,36 @@ class Products extends BaseController
             'title' => 'Daftar Product',
             'products' => $this->productsmodel->getProducts(),
             'products_snack' => $this->productsmodel->getProductsSnack(),
+        ];
+
+        // connect db pake model
+        // $productsmodel = new ProductsModel();
+
+        return view('products/snack', $data);
+    }
+    public function rajutan()
+    {
+        //cek apakah ada session bernama isLogin
+        if (!$this->session->has('isLogin')) {
+            return redirect()->to('/login');
+        }
+
+        // $products = $this->productsmodel->findAll();
+        $products_snack = $this->productsmodel->getProductsSnack();
+        $products_snack = $this->productsmodel->getProductsSnack();
+        $data = [
+            'title' => 'Daftar Product',
+            'products' => $this->productsmodel->getProducts(),
             'products_rajutan' => $this->productsmodel->getProductsRajutan()
         ];
 
         // connect db pake model
         // $productsmodel = new ProductsModel();
 
-        return view('products/index', $data);
+        return view('products/rajutan', $data);
     }
 
+    //kyknya gaperlu
     public function detail($slug)
     {
         $products = $this->productsmodel->getProducts($slug);
@@ -52,8 +80,19 @@ class Products extends BaseController
         return view('products/detail', $data);
     }
 
+    //Tampilan form tambah produk
     public function create()
     {
+        //cek apakah ada session bernama isLogin
+        if (!$this->session->has('isLogin')) {
+            return redirect()->to('/login');
+        }
+
+        //cek role dari session
+        if ($this->session->get('role') != 1) {
+            return redirect()->to('/');
+        }
+
         // session();
         $data = [
             'title' => 'Form Tambah Data Product',
@@ -80,7 +119,7 @@ class Products extends BaseController
                     'required' => '{field} product harus diisi,',
                 ]
             ],
-            'stok' => [
+            'deskripsi' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} product harus diisi,',
@@ -123,8 +162,9 @@ class Products extends BaseController
         $this->productsmodel->save([
             'nama' => $this->request->getVar('nama'),
             'slug' => $slug,
+            'kategori' => $this->request->getVar('kategori'),
+            'deskripsi' => $this->request->getVar('deskripsi'),
             'harga' => $this->request->getVar('harga'),
-            'stok' => $this->request->getVar('stok'),
             'gambar' => $namaGambar
         ]);
 
@@ -135,6 +175,15 @@ class Products extends BaseController
 
     public function delete($id)
     {
+        //cek apakah ada session bernama isLogin
+        if (!$this->session->has('isLogin')) {
+            return redirect()->to('/login');
+        }
+
+        //cek role dari session
+        if ($this->session->get('role') != 1) {
+            return redirect()->to('/');
+        }
         // Cari gambar berdasarkan id
         $products = $this->productsmodel->find($id);
 
@@ -152,6 +201,15 @@ class Products extends BaseController
 
     public function edit($slug)
     {
+        //cek apakah ada session bernama isLogin
+        if (!$this->session->has('isLogin')) {
+            return redirect()->to('/login');
+        }
+
+        //cek role dari session
+        if ($this->session->get('role') != 1) {
+            return redirect()->to('/');
+        }
         // session();
         $data = [
             'title' => 'Form Edit Data Product',
@@ -186,7 +244,7 @@ class Products extends BaseController
                     'required' => '{field} product harus diisi,',
                 ]
             ],
-            'stok' => [
+            'deskripsi' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} product harus diisi,',
@@ -227,8 +285,9 @@ class Products extends BaseController
             'id_barang' => $id,
             'nama' => $this->request->getVar('nama'),
             'slug' => $slug,
+            'kategori' => $this->request->getVar('kategori'),
+            'deskripsi' => $this->request->getVar('deskripsi'),
             'harga' => $this->request->getVar('harga'),
-            'stok' => $this->request->getVar('stok'),
             'gambar' => $namaGambar
         ]);
 
@@ -237,9 +296,14 @@ class Products extends BaseController
         return redirect()->to('/products');
     }
 
-    //HAPUS
+    //Tampilan beli produk (Perlu dihapus kah?)
     public function beli($slug)
     {
+        //cek apakah ada session bernama isLogin
+        if (!$this->session->has('isLogin')) {
+            return redirect()->to('/login');
+        }
+
         $products = $this->productsmodel->getProducts($slug);
         $provinsi = $this->rajaongkir('province');
         $data = [
@@ -259,7 +323,9 @@ class Products extends BaseController
 
                 $transaksi->fill($data);
                 $transaksi->status = 'Belum dibayar';
-                $transaksi->id_pelanggan = $this->session->get('logged_in');
+                $transaksi->metode_pengiriman = 'Diantar Kurir';
+                $transaksi->id_pelanggan = $this->session->get('id');
+                $transaksi->no_hp = $this->session->get('no_hp');
                 // $transaksi->created_at = $this->session->get('logged_in');
                 $transaksi->created_date = date("Y-m-d H:i:s");
 
@@ -276,82 +342,72 @@ class Products extends BaseController
         // $provinsi = $this->rajaongkir('province');
         return view('products/beli', $data);
     }
-
-    public function beliJemput($slug)
+    public function beli2($slug)
     {
-        $products = $this->productsmodel->getProducts($slug);
-        $provinsi = $this->rajaongkir('province');
+        //cek apakah ada session bernama isLogin
+        if (!$this->session->has('isLogin')) {
+            return redirect()->to('/login');
+        }
+
+        // dd($this->session->get('no_hp'));
+        // $idBarang = $this->productsmodel->getProducts($slug);
+        // $idBarang['id_barang'];
+        // dd($test['id_barang']);
+
         $data = [
-            'title' => 'Beli Barang',
+            'title' => 'Beli Produk Jemput | Bunch of Gifts',
             'products' => $this->productsmodel->getProducts($slug),
-            'provinsi' => json_decode($provinsi)->rajaongkir->results,
         ];
 
-        if ($this->request->getPost()) {
-            $data = $this->request->getPost();
-            $this->validation->run($data, 'transaksi');
-            $errors = $this->validation->getErrors();
-
-            if (!$errors) {
-                $transaksiModel = new \App\Models\TransaksiModel();
-                $transaksi = new \App\Entities\Transaksi();
-
-                $transaksi->fill($data);
-                $transaksi->status = 'Belum dibayar';
-                $transaksi->id_pelanggan = $this->session->get('logged_in');
-                // $transaksi->created_at = $this->session->get('logged_in');
-                $transaksi->created_date = date("Y-m-d H:i:s");
-
-                $transaksiModel->save($transaksi);
-
-                //ambil id transaksi model, yg diinsert berapa
-                $id = $transaksiModel->insertID();
-                //buka view dari controller transaksi
-                $segment = ['transaksi', 'view', $id];
-
-                return redirect()->to(site_url($segment));
-            }
-        }
         // $provinsi = $this->rajaongkir('province');
-        return view('products/beliJemput', $data);
+        return view('products/beli2', $data);
     }
-    public function beliAntar($slug)
+
+    public function saveJemput()
     {
-        $products = $this->productsmodel->getProducts($slug);
-        $provinsi = $this->rajaongkir('province');
-        $data = [
-            'title' => 'Beli Barang',
-            'products' => $this->productsmodel->getProducts($slug),
-            'provinsi' => json_decode($provinsi)->rajaongkir->results,
-        ];
+        $data = $this->request->getPost();
+        $transaksiModel = new \App\Models\TransaksiModel();
+        $transaksi = new \App\Entities\Transaksi();
 
-        if ($this->request->getPost()) {
-            $data = $this->request->getPost();
-            $this->validation->run($data, 'transaksi');
-            $errors = $this->validation->getErrors();
+        $transaksi->fill($data);
+        $transaksi->id_pelanggan = $this->session->get('id');
+        $transaksi->no_hp = $this->session->get('no_hp');
+        $transaksi->alamat = '-';
+        $transaksi->metode_pengiriman = 'Dijemput ke toko';
+        $transaksi->ongkir = 0;
+        $transaksi->status = 'Belum dibayar';
+        // $transaksi->created_at = $this->session->get('logged_in');
+        $transaksi->created_date = date("Y-m-d H:i:s");
 
-            if (!$errors) {
-                $transaksiModel = new \App\Models\TransaksiModel();
-                $transaksi = new \App\Entities\Transaksi();
+        $transaksiModel->save($transaksi);
 
-                $transaksi->fill($data);
-                $transaksi->status = 'Belum dibayar';
-                $transaksi->id_pelanggan = $this->session->get('logged_in');
-                // $transaksi->created_at = $this->session->get('logged_in');
-                $transaksi->created_date = date("Y-m-d H:i:s");
+        //ambil id transaksi model, yg diinsert berapa
+        $id = $transaksiModel->insertID();
+        //buka view dari controller transaksi
+        $segment = ['transaksi', 'view', $id];
 
-                $transaksiModel->save($transaksi);
+        return redirect()->to(site_url($segment));
 
-                //ambil id transaksi model, yg diinsert berapa
-                $id = $transaksiModel->insertID();
-                //buka view dari controller transaksi
-                $segment = ['transaksi', 'view', $id];
+        // dd($data);
+        // $this->$transaksiModel::save([
+        //     'id_pelanggan' => $this->session->get('id'),
+        //     'id_barang' => $this->request->getVar('id_barang'),
+        //     'no_hp' => $this->session->get('no_hp'),
+        //     'alamat' => '-',
+        //     'jumlah' => $this->request->getVar('jumlah'),
+        //     'metode_pengiriman' => 'Dijemput ke toko',
+        //     'ongkir' => 0,
+        //     'total_harga' => $this->request->getVar('total_harga'),
+        //     'status' => 'Belum dibayar'
+        // ]);
 
-                return redirect()->to(site_url($segment));
-            }
-        }
-        // $provinsi = $this->rajaongkir('province');
-        return view('products/beliAntar', $data);
+        // $id = $this->request->getVar('id_barang');
+        // //buka view dari controller transaksi
+        // $segment = ['transaksi', 'view', $id];
+
+        // return redirect()->to(site_url($segment));
+
+        // return redirect()->to('/products');
     }
 
     public function getCity()

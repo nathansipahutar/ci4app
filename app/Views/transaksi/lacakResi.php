@@ -48,7 +48,7 @@
 <?= $this->section('script'); ?>
 <script>
     $('document').ready(function() {
-        let kode_resi = <?= $transaksi->kode_resi; ?>;
+        let kode_resi = '<?= $transaksi->kode_resi; ?>';
         $.ajax({
             url: 'https://api.binderbyte.com/v1/track?api_key=83f5c1ec842782e1bc44c4763ccd7d1685a97a75fce1a08f40c967506188914f',
             type: 'get',

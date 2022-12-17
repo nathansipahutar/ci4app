@@ -10,7 +10,7 @@ class ProductsModel extends Model
     protected $useTimestamps = true;
     protected $primaryKey = 'id_barang';
     //Allowed Fields adalah kolom di tabel yang bisa di ubah2
-    protected $allowedFields = ['nama', 'slug', 'kategori', 'harga', 'stok', 'gambar', 'deskripsi'];
+    protected $allowedFields = ['nama', 'slug', 'kategori', 'gambar', 'deskripsi', 'harga'];
 
     public function getProducts($slug = false)
     {
@@ -22,7 +22,7 @@ class ProductsModel extends Model
     }
     public function getProductsSnack()
     {
-        return $this->where('kategori', 'bouque')->findAll();
+        return $this->where('kategori', 'bouquet')->findAll();
     }
     public function getProductsRajutan()
     {

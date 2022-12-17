@@ -11,7 +11,7 @@
                     <a class="nav-link" href="<?= base_url('/'); ?>">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('/pages/about'); ?>">About</a>
+                    <a class="nav-link active" href="<?= base_url('/pages/about'); ?>">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('/products'); ?>">Products</a>
@@ -23,15 +23,24 @@
                     <a class="nav-link" href="<?= base_url('/pages/contact'); ?>">Contact Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('logout'); ?>">Logout</a>
+                    <a class="nav-link" href="<?= base_url('/user'); ?>">Profile</a>
                 </li>
+                <?php if (session()->has('isLogin')) :  ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('/logout'); ?>">Logout</a>
+                    </li>
+                <?php else : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('/login'); ?>">Login</a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
+                        Products
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="/product/snack">Snack Bouquet</a>
+                        <a class="dropdown-item" href="/product/rajutan">Rajutan</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>

@@ -30,12 +30,21 @@
                         </div>
                     </div>
                 </div>
-                <div class=" form-group row">
-                    <label for="stok" class="col-sm-2 col-form-label">Stock</label>
+                <div class="form-group row">
+                    <label for="kategori" class="col-sm-2 col-form-label">Kategori</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control <?= ($validation->hasError('stok')) ? 'is-invalid' : ''; ?>" id="stok" name="stok" value="<?= (old('stok')) ? old('stok') : $products['stok'] ?>">
+                        <select name="kategori" id="kategori">
+                            <option value="bouquet">Bouquet</option>
+                            <option value="rajutan">Rajutan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="deskripsi" class="col-sm-2 col-form-label">deskripsi</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control <?= ($validation->hasError('deskripsi')) ? 'is-invalid' : ''; ?>" id="deskripsi" name="deskripsi" autofocus value="<?= old('deskripsi'); ?>">
                         <div class="invalid-feedback">
-                            <?= $validation->getError('stok'); ?>
+                            <?= $validation->getError('deskripsi'); ?>
                         </div>
                     </div>
                 </div>

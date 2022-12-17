@@ -1,10 +1,16 @@
-<?= $this->extend('layout/template'); ?>
-<?= $this->section('content'); ?>
+<?= $this->extend('templates/index'); ?>
+
+<?= $this->section('page-content'); ?>
 
 <h1>Transaksi</h1>
 <?php if (session()->getFlashdata('pesan')) : ?>
     <div class="alert alert-success" role="alert">
         <?= session()->getFlashdata('pesan'); ?>
+    </div>
+<?php endif; ?>
+<?php if (session()->getFlashdata('gagal')) : ?>
+    <div class="alert alert-danger" role="alert">
+        <?= session()->getFlashdata('gagal'); ?>
     </div>
 <?php endif; ?>
 <table class="table">
@@ -29,12 +35,19 @@
                 <td><?= $transaksi->jumlah; ?></td>
                 <td><?= $transaksi->total_harga; ?></td>
                 <td>
-                    <a href="<?= site_url('/admin/transaksi/edit/' . $transaksi->id_transaksi); ?>" class="btn btn-primary">View</a>
-                    <a href="<?= site_url('transaksi/invoice/' . $transaksi->id_transaksi); ?>" class="btn btn-info">Invoice</a>
+                    <?php if ($transaksi->status == 'Menunggu konfirmasi pembayaran') { ?>
+                        <a href="<?= site_url('/admin/cekPembayaran/' . $transaksi->id_transaksi); ?>" class="btn btn-info">Cek Pembayaran</a>
+                    <?php } ?>
+                    <?php if ($transaksi->status == 'Produk sedang diproses') { ?>
+                        <a href="<?= site_url('/admin/transaksi/inputResi/' . $transaksi->id_transaksi); ?>" class="btn btn-warning">Input Resi</a>
+                    <?php } else { ?>
+                        <p>selesai deh</p>
+                    <?php } ?>
+
                 </td>
             </tr>
         <?php endforeach ?>
     </tbody>
 </table>
 
-<?= $this->endSection(); ?>
+<?= $this->endSection('page-content'); ?>

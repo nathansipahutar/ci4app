@@ -6,7 +6,7 @@
         <div class="col-8">
             <h2 class="my-3">Form Edit Data Pesanan</h2>
 
-            <form action="/admin/transaksi/update/<?= $transaksi->id_transaksi; ?>" method="post" enctype="multipart/form-data">
+            <form action="/admin/transaksi/simpanResi/<?= $transaksi->id_transaksi; ?>" method="post" enctype="multipart/form-data">
                 <!-- crsf agar form hanya dapat diakses di halaman ini -->
                 <?= csrf_field(); ?>
                 <input type="hidden" name="id_transaksi" id="" value="<?= $transaksi->id_transaksi; ?>">
@@ -68,7 +68,7 @@
                 <div class=" form-group row">
                     <label for="status" class="col-sm-2 col-form-label">Status</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control <?= ($validation->hasError('status')) ? 'is-invalid' : ''; ?>" id="status" name="status" value="<?= (old('status')) ? old('status') : $transaksi->status ?>">
+                        <input readonly type="text" class="form-control <?= ($validation->hasError('status')) ? 'is-invalid' : ''; ?>" id="status" name="status" value="<?= (old('status')) ? old('status') : $transaksi->status ?>">
                         <div class="invalid-feedback">
                             <?= $validation->getError('status'); ?>
                         </div>
