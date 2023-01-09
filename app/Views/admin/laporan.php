@@ -1,14 +1,18 @@
 <?= $this->extend('templates/index'); ?>
 
 <?= $this->section('page-content'); ?>
-<a href="/admin/laporan">BACK</a>
+
 <div class='container' style='margin-top: 20px;'>
 
+    <h1>Laporan Penjualan</h1>
+    <p>Apabila ingin melihat laporan berdasarkan periode tanggal, silahkan isi input tanggal dibawah ini</p>
     <!-- Search form -->
     <form method='get' action="laporan" id="searchForm">
-        <input type='date' name='dari' value='<?= $dari ?>'>
-        <input type='date' name='ke' value='<?= $ke ?>'>
-        <input type='button' id='btnsearch' value='Submit' onclick='document.getElementById("searchForm").submit();'>
+        <div class="form-rapih">
+            <input class="form-control" type='date' name='dari' value='<?= $dari ?>'>
+            <input class="form-control" type='date' name='ke' value='<?= $ke ?>'>
+            <input class="btn btn-success" type='button' id='btnsearch' value='Submit' onclick='document.getElementById("searchForm").submit();'>
+        </div>
     </form>
     <br />
 

@@ -1,6 +1,6 @@
-<?= $this->extend('layout/template'); ?>
+<?= $this->extend('templates/index'); ?>
 
-<?= $this->section('content'); ?>
+<?= $this->section('page-content'); ?>
 <div class="container">
     <div class="row">
         <div class="col-8">

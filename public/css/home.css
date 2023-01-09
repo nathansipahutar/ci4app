@@ -6,16 +6,51 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+body{
+    background-color: #eee;
+}
 header{
     position: relative;
     width: 100%;
-    min-height: 50vh;
-    padding: 0 100px;
+    height: auto;
+    
+    /* padding: 0 100px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #fff;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
+}
+
+/* NAVBAR */
+/* .navbar-css{
+    background-color: #fff;
+    position: sticky;
+} */
+.navbar-king-container{
+    display: flex;
+    /* background-color: #012970; */
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.navbar-links-container{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    /* background-color: #017143; */
+}
+.navbar-item-home{
+    margin: auto 8px;
+}
+
+/* HERO */
+.hero-header{
+    background-image: url(../img/hero-bg-1.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 60px;
+    padding-bottom: 100px;
 }
 .content{
     position: relative;
@@ -23,29 +58,32 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 200px;
 }
 
 .content .textBoxHome{
     position: relative;
-    max-width: 600px;
+    /* max-width: 700px; */
+    min-width: 750px;
 }
 
-.content .textBoxHome h2{
+.content .textBoxHome h1{
     color: #333;
-    font-size: 4em;
+    font-size: 2.4em;
     line-height: 1.4em;
     font-weight: 500;
+    text-align: justify;
 }
 
-.content .textBoxHome h2 span{
+.content .textBoxHome h1 span{
     color: #017143;
-    font-size: 1.2em;
+    font-size: 1.4em;
+    line-height: 1.2em;
     font-weight: 900;
 }
 
 .content .textBoxHome p{
     color: #333;
+    max-width: 70%;
 }
 
 .content .textBoxHome a{
@@ -58,6 +96,10 @@ header{
     letter-spacing: 1px;
     text-decoration: none;
 }
+.content .textBoxHome p{
+    font-size: 1.3em;
+
+}
 
 /* IMAGE */
 .content .imgBoxHome{
@@ -68,7 +110,7 @@ header{
     padding-top: 50px;
 }
 .content .imgBoxHome img{
-    max-width: 500px;
+    max-width: 600px;
 }
 
 /* TOMBOL GANTI DASHBOARD */
@@ -94,10 +136,10 @@ header{
 }
 
 .sci{
-    position: absolute;
-    top: 50%;
-    right: 30px;
-    transform: translateY(-50%);
+    /* position: absolute; */
+    /* top: 50%; */
+    right: 0px;
+    /* transform: translateY(-50%); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,8 +150,13 @@ header{
 }
 .sci li a {
     display: inline-block;
-    margin: 5px 0;
-   transform: scale(0.6); 
+    margin: 15px 0;
+   /* transform: scale(2.5); */
+}
+.sci .fa-brands{
+    color: #017143; 
+    font-size: 35px;
+
 }
 
 .circle{
@@ -122,10 +169,473 @@ header{
     clip-path: circle(600px at right 800px);
 }
 
-main{
+/* main{
     margin-bottom: 200px;
-}
+} */
 
 footer .sticky-footer{
     background-color: blue;
 }
+
+/* Products */
+.products-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.page-products{
+    min-height: auto;
+    margin-top: 120px;
+}
+
+/* HALAMAN PRODUCTS */
+.heading-products{
+    padding-top: 50px;
+    margin: 50px auto;
+}
+.heading-products h2{
+    font-size: 2.5em;
+    line-height: 1.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.heading-products p{
+    font-size: 1.2em;
+    line-height: 1.5em;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-align: center;
+    color: grey;
+}
+/* CARD PRODUCTS */
+.products-card{
+    margin-bottom: 50px;
+    border-radius: 200px;
+}
+.border-card{
+    border-radius: 200px;
+}
+.card-body span{
+    font-size: 1.4em;
+    line-height: 2em;
+    font-weight: 700;
+    margin-bottom: 20px;   
+}
+.judul-produk {
+    font-size: 1.6em;
+    font-weight: 400;
+}
+
+.products-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.products-btn a{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* PILIH PRODUK */
+.products-container .card{
+    position: relative;
+    height: 400px;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: antiquewhite;
+}
+.products-container .card .card-content{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* width: 50%; */
+    left: 20%;
+    opacity: 0;
+    visibility: hidden;
+    padding: 20px 20px 20px 40px;
+    transition: 0.5s;
+}
+.products-container .card:hover .card-content{
+    left: 0;
+    width: 50%;
+    /* height: 600px; */
+    opacity: 1;
+    position: absolute;
+    visibility: visible;
+}
+
+.products-container .card img{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 450px;
+    transition: 0.5s;
+}
+.products-container .card:hover img.products-bouquet{
+    left: 75%;
+    height: 600px;
+}
+.products-container .card:hover img.products-rajutan{
+    left: 90%;
+    bottom: 20px;
+    height: 550px;
+}
+
+.products-list-page{
+    font-size: 2.5em;
+    line-height: 1em;
+    font-weight: 700;
+    margin: 80px auto 70px;
+}
+.products-list-heading{
+    font-size: 2.5em;
+    line-height: 1em;
+    font-weight: 700;
+    margin: 80px auto;
+}
+
+/* HALAMAN BELI */
+.beli-container{
+    margin-top: 60px;
+}
+.form-beli-heading{
+    padding-top: 50px;
+    margin-bottom: 60px;
+}
+.form-beli-heading h2{
+    font-size: 2.5em;
+    line-height: 1.3em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.form-beli-heading p{
+    font-size: 1.2em;
+    line-height: 1.5em;
+    font-weight: 400;
+    text-align: center;
+    color: grey;
+}
+.nama-product{
+    font-size: 2.5em;
+    line-height: 1em;
+    font-weight: 700;
+    margin: 20px 0;
+    color: #017143;
+}
+.harga-product{
+    font-size: 1.5em;
+    line-height: 1em;
+    font-weight: 500;
+    
+}
+/* DETAIL TRANSAKSI */
+.transaksi-container h2{
+    padding-top: 50px;
+    font-size: 2.5em;
+    line-height: 1.3em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.transaksi-container .p-headings{
+    font-size: 1.3em;
+    line-height: 1.5em;
+    font-weight: 400;
+    max-width: 80%;
+    margin-bottom: 50px;
+}
+.table-detail-transaksi{
+    margin-bottom: 400px;
+}
+
+.detail-transaksi{
+    display: none;
+}
+
+.link-order{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.link-order a{
+    min-width: 120px;
+    font-size: 1.2em;
+}
+
+/* LIST TRANSAKSI USER */
+.user-transaksi-container{
+    margin: 40px 150px;
+    padding-top: 50px;
+    /* display: none; */
+}
+.user-transaksi-container h2{
+    font-size: 2.5em;
+    line-height: 1.3em;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+.action-list-transaksi a{
+    margin: 3px;
+}
+.action-list-transaksi button{
+    margin: 3px;
+}
+.responsive-list-transaksi{
+    margin-top: 80px;
+    display: none;
+}
+.responsive-list-transaksi h2{
+    font-size: 2.5em;
+    line-height: 1.3em;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+.list-card-list-transaksi{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+.list-transaksi-card{
+    margin-bottom: 40px;
+    width: auto;
+}
+.nama-list-transaksi{
+    font-size: 1.8em;
+    line-height: 1.5em;
+    font-weight: 700;
+}
+.harga-list-transaksi{
+   font-size: 1.3em;
+    line-height: 1.5em;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+.card-flex-transaksi p{
+    
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+/* FORM BAYAR */
+.form-bayar h2{
+    font-size: 2.5em;
+      line-height: 1.3em;
+      font-weight: 700;
+      margin-bottom: 50px;
+  }
+  
+  /* CONTACT US */
+  .contact-heading{
+    padding-top: 50px;
+    margin-top: 50px;
+  }
+  .contact-heading h2{
+    font-size: 2.5em;
+    line-height: 1.3em;
+    font-weight: 700;
+    margin-bottom: 50px;
+  }
+.info-box{
+    color: #444444;
+    background: #fafbff;
+    padding: 30px;
+}
+.info-box h3{
+    font-size: 20px;
+    color: #012970;
+    font-weight: 700;
+    margin: 20px 0 10px 0;
+}
+.info-box i{
+    font-size: 2em;
+    color: #012970;
+}
+
+/* PFOFILE */
+.user-container{
+    margin-top: 50px;
+}
+.user-heading{
+    padding-top: 50px;
+    margin-bottom: 20px;
+}
+.user-heading h2{
+    font-size: 2.5em;
+    line-height: 1.3em;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+.user-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* LACAK PESANAN */
+.lacak-pesanan-heading{
+    margin-top: 50px;
+}
+.lacak-pesanan-heading h2{
+    font-size: 2.5em;
+    line-height: 1.3em;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+#resi_status{
+    margin-bottom: 40px;
+}
+#resi_status h3{
+    font-size: 2em;
+    line-height: 1.3em;
+    font-weight: 500;
+}
+#resi_posisi{
+    margin-bottom: 40px;
+}
+.resi-posisi{
+    margin-bottom: 40px;
+}
+
+/* ABOUT US */
+.about-us{
+    margin-top: 70px;
+    padding-top: 100px;
+}
+.about-us h3{
+    font-size: 2.5em;
+    line-height: 1em;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.about-us p{
+    font-size: 1.4em;
+    line-height: 2em;
+    font-weight: 400;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+.products-list{
+    margin-top: 80px;
+}
+.products-container .card .card-content h2{
+    font-size: 2.5em;
+    line-height: 1em;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.products-container .card .card-content p{
+    font-size: 1.1em;
+    line-height: 1.7em;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+.products-container .card .card-content a{
+    z-index: 9;
+}
+
+/* ADMIN */
+.admin-container-page{
+    padding: 30px 0;
+}
+
+/* ADMIN-LAPORAN */
+.form-rapih{
+    display: flex;
+    /* justify-content: space-between; */
+}
+.form-rapih input{
+    max-width: 300px;
+    margin-right: 15px;
+}
+
+@media only screen and (max-width: 1125px){
+    .user-transaksi-container{
+        display: none;
+    }
+    .responsive-list-transaksi{
+        display: block;
+    }
+    .responsive-hp-navbar{
+        display: flex;
+        flex-direction: row;
+        left: 0px;
+    }
+    .navbar-king-container{
+        display: block;
+        margin-left: 0px !important;
+    }
+    .logo-container{
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    /* NAVBAR */
+    .navbar-css{
+        background-color: #fdf3e4 !important;
+    }
+    /* HOME */
+    .products-list{
+        flex-direction: column;
+    }
+    .maps-frame{
+        width: auto;
+    }
+    .products-container{
+        flex-direction: column;
+    }
+    .products-container .card{
+        width: auto;
+        max-width: 400px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .products-container .card:hover{
+        height: 600px;
+    }
+    .products-container .card:hover img{
+        left: 50%;
+        height: 350px;
+    }
+    .products-container .card .card-content{
+        width: 100%;
+        left: 0;
+        padding: 40px;
+    }
+
+    /* PRODUCT CARDS */
+    .products-btn{
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+    }
+    .products-btn a{
+        margin-bottom: 10px;
+    }
+
+    /* DETAIL TRANSAKSI */
+    .table-detail-transaksi{
+        display: none;
+    }
+    .detail-transaksi{
+        display: flex;
+        flex-direction: column;
+    }
+    .transaksi-container .p-headings{
+        max-width: 100%;
+    }
+    .link-order{
+        align-items: center;
+        width: 100%;
+    }
+  }

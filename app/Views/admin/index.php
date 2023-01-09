@@ -1,28 +1,27 @@
 <?= $this->extend('templates/index'); ?>
 
 <?= $this->section('page-content'); ?>
-<div class="container-fluid">
+<div class="admin-container-page container-fluid">
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">ADMIN</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     </div>
 
     <!-- Content Row -->
     <div class="row">
 
         <!-- Lihat User List -->
-        <div class="row">
-            <div class="col-lg-8">
+        <div class="row d-flex">
+            <div class="col-lg-6">
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Username</th>
                             <th scope="col">Email</th>
+                            <th scope="col">No HP</th>
                             <th scope="col">Role</th>
-                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,90 +32,22 @@
                                 <td><?= $user->username; ?></td>
                                 <td><?= $user->email; ?></td>
                                 <td><?= $user->no_hp; ?></td>
-                                <td>
-                                    <a href="<?= base_url('admin/' . $user->userid); ?>" class="btn btn-info">Detail</a>
-                                </td>
+                                <td><?= $user->role; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
+            <div class="col-lg-6">
+                <div class="mb-5" id="pie-chart" style="height: 400px; width: 100%"></div>
+            </div>
         </div>
 
-        <div class="mb-5 mt-5" id="pie-chart" style="height: 400px; width: 100%"></div>
         <div class="mb-5 mt-5">
             <div id="GoogleLineChart" style="height: 400px; width: 100%"></div>
         </div>
         <div class="mb-5">
             <div id="GoogleBarChart" style="height: 400px; width: 100%"></div>
-        </div>
-
-        <!-- Color System -->
-        <div class="row">
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-primary text-white shadow">
-                    <div class="card-body">
-                        Primary
-                        <div class="text-white-50 small">#4e73df</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-success text-white shadow">
-                    <div class="card-body">
-                        Success
-                        <div class="text-white-50 small">#1cc88a</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-info text-white shadow">
-                    <div class="card-body">
-                        Info
-                        <div class="text-white-50 small">#36b9cc</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-warning text-white shadow">
-                    <div class="card-body">
-                        Warning
-                        <div class="text-white-50 small">#f6c23e</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-danger text-white shadow">
-                    <div class="card-body">
-                        Danger
-                        <div class="text-white-50 small">#e74a3b</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-secondary text-white shadow">
-                    <div class="card-body">
-                        Secondary
-                        <div class="text-white-50 small">#858796</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-light text-black shadow">
-                    <div class="card-body">
-                        Light
-                        <div class="text-black-50 small">#f8f9fc</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-dark text-white shadow">
-                    <div class="card-body">
-                        Dark
-                        <div class="text-white-50 small">#5a5c69</div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

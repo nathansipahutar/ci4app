@@ -8,6 +8,7 @@ class Pages extends BaseController
     {
         $data = [
             'title' => 'Home | Bunch of Gifts',
+            'statusNav' => 'home'
         ];
         return view('pages/home', $data);
     }
@@ -15,6 +16,7 @@ class Pages extends BaseController
     {
         $data = [
             'title' => 'About Us | Bunch of Gifts',
+            'statusNav' => 'about'
         ];
         return view('pages/about', $data);
     }
@@ -23,18 +25,7 @@ class Pages extends BaseController
     {
         $data = [
             'title' => 'Contact Us | Bunch of Gifts',
-            'alamat' => [
-                [
-                    'tipe' => 'rumah',
-                    'alamat' => 'Jl. Lebak Bulus III no. 28A',
-                    'kota' => 'Jakarta Selatan'
-                ],
-                [
-                    'tipe' => 'Kantor',
-                    'alamat' => 'Jl. Setiabudi no. 182',
-                    'kota' => 'Bandung'
-                ]
-            ]
+            'statusNav' => 'contact',
         ];
 
         return view('pages/contact', $data);

@@ -2,23 +2,28 @@
 
 <?= $this->section('content'); ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-6">
+<div class="beli-container container">
+    <div class="form-beli-heading">
+        <h2 class="text-center">Form Pemesanan produk</h2>
+        <p class="text-center">Silahkan lengkapi form berikut untuk melakukan pemesanan produk</p>
+    </div>
+    <div class="form-pembelian2-responsive row">
+        <div class="form-beli2 col-6">
             <div class="card">
                 <div class="card-body">
                     <img src="/img/<?= $products['gambar'] ?>" alt="" class="img-fluid">
-                    <h1 class="text-success"><?= $products['nama'] = isset($products['nama']) ? $products['nama'] : ''; ?></h1>
-                    <h4>Harga : <?= $products['harga'] = isset($products['harga']) ? $products['harga'] : ''; ?></h4>
+                    <h3 class="nama-product"><?= $products['nama'] = isset($products['nama']) ? $products['nama'] : ''; ?></h3>
+                    <h4 class="harga-product">Rp <?= $products['harga'] = isset($products['harga']) ? $products['harga'] : ''; ?></h4>
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="form-beli2 col-6">
             <h4>Pembelian</h4>
             <form action="/products/saveJemput" method="post" enctype="multipart/form-data">
                 <!-- crsf agar form hanya dapat diakses di halaman ini -->
                 <?= csrf_field(); ?>
-                <input hidden type="number" class="form-control" id="id_barang" name="id_barang" value="<?= $products['id_barang']; ?>">
+                <input hidden type="text" class="form-control" id="id_barang" name="id_barang" value="<?= $products['id_barang']; ?>">
+                <input hidden type="text" class="form-control" id="slug" name="slug" value="<?= $products['slug']; ?>">
                 <div class=" form-group row">
                     <label for="jumlah" class="col-sm-2 col-form-label">Jumlah</label>
                     <div class="col-sm-10">
@@ -32,8 +37,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Beli</button>
+                    <div class="col-sm-10 d-flex flex-end">
+                        <button type="submit" class="btn btn-success ">Beli</button>
                     </div>
                 </div>
             </form>

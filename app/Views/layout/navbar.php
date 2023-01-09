@@ -1,55 +1,47 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="<?= base_url('/'); ?>">Bunch of Gifts</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="<?= base_url('/'); ?>">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="<?= base_url('/pages/about'); ?>">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('/products'); ?>">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('/transaksi/user'); ?>">My Order</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('/pages/contact'); ?>">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('/user'); ?>">Profile</a>
-                </li>
-                <?php if (session()->has('isLogin')) :  ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('/logout'); ?>">Logout</a>
-                    </li>
-                <?php else : ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('/login'); ?>">Login</a>
-                    </li>
-                <?php endif; ?>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Products
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/product/snack">Snack Bouquet</a>
-                        <a class="dropdown-item" href="/product/rajutan">Rajutan</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
+<nav class="navbar-css navbar navbar-expand-lg navbar-light">
+    <div class="container navbar-king-container" style="width: 100%;">
+        <div class="responsive-hp-navbar">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="logo-container">
+                <a class="navbar-brand" href="<?= base_url('/'); ?>"><img style="max-height: 2em;" src="/img/logo.png" alt=""></a>
+            </div>
         </div>
+        <div class="navbar-links-container" id="navbar-links-container">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="navbar-item-home nav-item home <?= $statusNav == 'home' ? 'active' : '' ?>">
+                        <a class="nav-link" href="<?= base_url('/'); ?>">Home </a>
+                    </li>
+                    <li class="navbar-item-home nav-item about <?= $statusNav == 'about' ? 'active' : '' ?>">
+                        <a class="nav-link" href="<?= base_url('/'); ?>#aboutUs">Tentang Kami</a>
+                    </li>
+                    <li class="navbar-item-home nav-item products <?= $statusNav == 'products' ? 'active' : '' ?>">
+                        <a class="nav-link" href="<?= base_url('/products'); ?>">Produk</a>
+                    </li>
+                    <li class="navbar-item-home nav-item order <?= $statusNav == 'order' ? 'active' : '' ?>">
+                        <a class="nav-link" href="<?= base_url('/transaksi/user'); ?>">Pesanan Saya</a>
+                    </li>
+                    <li class="navbar-item-home nav-item contact <?= $statusNav == 'contact' ? 'active' : '' ?>">
+                        <a class="nav-link" href="<?= base_url('/pages/contact'); ?>">Hubungi Kami</a>
+                    </li>
+                    <?php if (session()->has('isLogin')) :  ?>
+                        <li class="navbar-item-home nav-item profile <?= $statusNav == 'profile' ? 'active' : '' ?>">
+                            <a class="nav-link" href="<?= base_url('/user'); ?>">Profil</a>
+                        </li>
+                        <li class="navbar-item-home nav-item">
+                            <a class=" btn btn-outline-dark" href="<?= base_url('/logout'); ?>">Logout</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="navbar-item-home nav-item">
+                            <a class=" btn btn-dark" href="<?= base_url('/login'); ?>">Login</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+
+
     </div>
 </nav>

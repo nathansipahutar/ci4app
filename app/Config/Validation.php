@@ -45,7 +45,7 @@ class Validation extends BaseConfig
             'rules' => 'required',
         ],
         'jumlah' => [
-            'rules' => 'required',
+            'rules' => 'required|greater_than[0]',
         ],
         'total_harga' => [
             'rules' => 'required',
@@ -56,6 +56,13 @@ class Validation extends BaseConfig
         'ongkir' => [
             'rules' => 'required',
         ],
+    ];
+    public $transaksiJemput = [
+
+        'jumlah' => [
+            'rules' => 'required|greater_than[0]',
+        ],
+
     ];
 
     public $register = [

@@ -29,7 +29,7 @@
 
         Pembeli : <?= $transaksi->username; ?> <br>
         Alamat : <?= $transaksi->alamat; ?><br>
-        Transaksi No : TRX <?= $transaksi->id_transaksi; ?> <br>
+        Transaksi No : <?= $transaksi->id_transaksi; ?> <br>
         Tanggal : <?= date('Y-m-d', strtotime($transaksi->created_at)); ?>
     </p>
 

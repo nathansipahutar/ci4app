@@ -17,19 +17,29 @@ class Auth extends BaseController
         //meload session
         $this->session = \Config\Services::session();
         $this->email = \Config\Services::email();
+
+        //query builder
+        $this->db      = \Config\Database::connect();
+        $this->builder = $this->db->table('user');
     }
 
     public function login()
     {
         //menampilkan halaman login
 
-        return view('auths/login', ['title' => 'Login | Bunch of Gifts',]);
+        return view('auths/login', [
+            'title' => 'Login | Bunch of Gifts',
+            'statusNav' => 'login'
+        ]);
     }
 
     public function register()
     {
         //menampilkan halaman register
-        return view('auths/register', ['title' => 'Register | Bunch of Gifts',]);
+        return view('auths/register', [
+            'title' => 'Register | Bunch of Gifts',
+            'statusNav' => 'login'
+        ]);
     }
 
     public function valid_register()
@@ -57,8 +67,15 @@ class Auth extends BaseController
         //hash password digabung dengan salt
         $password = md5($data['password']) . $salt;
 
+        //GENERATE ID
+        $this->builder->selectMax("id");
+        $id_tangkap = $this->builder->countAll();
+        $id_tangkap++;
+        // dd($id_tangkap);
+
         //masukan data ke database
-        $this->userModel->save([
+        $this->userModel->insert([
+            'id' => "PLG-" . $id_tangkap,
             'username' => $data['username'],
             'email' => $data['email'],
             'no_hp' => $data['no_hp'],
@@ -76,21 +93,21 @@ class Auth extends BaseController
         $this->email->setTo($data['email']);
 
         // $this->email->attach($attachment);
-        $this->email->SetSubject('Test Email');
+        $this->email->SetSubject('Konfirmasi akun email');
 
-        $this->email->setMessage('Terima kasih sudah membuat akun!'); // Our message above including the link
-        $this->email->setMessage('Berikut adalah informasi seputar akun yang anda buat.'); // Our message above including the link
-        $this->email->setMessage(' ------------------------'); // Our message above including the link
-        $this->email->setMessage('Username: ' . $data['username'] . ''); // Our message above including the link
-        $this->email->setMessage('Nomor HP: ' . $data['no_hp'] . ''); // Our message above including the link
-        $this->email->setMessage('------------------------'); // Our message above including the link
-        $this->email->setMessage('Silahkan klik link dibawah ini untuk mengaktivasi akun anda.'); // Our message above including the link
-        $this->email->setMessage('http://localhost:8080/emailValidation/' . $data['username'] . ''); // Our message above including the link
+        // $this->email->setMessage('Terima kasih sudah membuat akun!'); // Our message above including the link
+        // $this->email->setMessage('Berikut adalah informasi seputar akun yang anda buat.'); // Our message above including the link
+        // $this->email->setMessage(' ------------------------'); // Our message above including the link
+        // $this->email->setMessage('Username: ' . $data['username'] . ''); // Our message above including the link
+        // $this->email->setMessage('Nomor HP: ' . $data['no_hp'] . ''); // Our message above including the link
+        // $this->email->setMessage('------------------------'); // Our message above including the link
+        // $this->email->setMessage('Silahkan klik link berikut untuk mengaktivasi akun anda.'); // Our message above including the link
+        $this->email->setMessage('Silahkan klik link berikut untuk mengaktivasi akun anda. http://localhost:8080/emailValidation/' . $data['username'] . ''); // Our message above including the link
 
         if (!$this->email->send()) {
             return redirect()->to('/register');
         } else {
-            session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan login');
+            session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan aktivasi akun terlebih dahulu');
             // session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan login');
             return redirect()->to('/login');
         }

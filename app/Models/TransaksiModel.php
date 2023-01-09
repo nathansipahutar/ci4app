@@ -11,7 +11,7 @@ class TransaksiModel extends Model
     protected $primaryKey = 'id_transaksi';
     //Allowed Fields adalah kolom di tabel yang bisa di ubah2
     protected $allowedFields = [
-        'id_pelanggan', 'id_barang', 'no_hp',
+        'id_transaksi', 'id_pelanggan', 'id_barang', 'no_hp',
         'alamat', 'jumlah', 'metode_pengiriman', 'ongkir', 'total_harga', 'bukti_bayar', 'nama_bank', 'atas_nama', 'kode_resi',
         'status', 'created_at', 'updated_at'
     ];

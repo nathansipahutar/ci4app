@@ -1,27 +1,41 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<?= $i = 1; ?>
-<div class="container">
+<?php $i = 1; ?>
+
+<div class="container products-bg">
+    <div class="heading-products">
+        <h2 class="text-center">Daftar Produk Rajutan</h2>
+        <p class="text-center">Silahkan pilih salah satu produk yang kamu suka dan lakukan transaksi pembelian!</p>
+    </div>
     <div class="row">
-        <?php foreach ($products_rajutan as $p) : ?>
-            <div class="col-4">
-                <div class="card text-center">
-                    <div class="card-header">
-                        <span class="text-success">
-                            <strong><?= $p['nama']; ?></strong>
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <img src="/img/<?= $p['gambar']; ?>" alt="Products picture" class="img-thumbnail" style="max-width: 150px">
-                        <h5 class="mt-3 text-success"><?= "Rp " .  $p['harga']; ?></h5>
-                    </div>
-                    <div class="card-footer">
-                        <a style="width: 100%;" class="btn btn-success" href="/product/beli/<?= $p['slug']; ?>">Beli</a>
-                    </div>
+        <section>
+            <div class=" container py-5">
+                <div class="row justify-content-center">
+                    <!-- CARDS -->
+                    <?php foreach ($products_rajutan as $p) : ?>
+                        <div class="col-xl-4 products-card">
+                            <div class="border-card card text-black">
+                                <img src="/img/<?= $p['gambar']; ?>" class="card-img-top" alt="Apple Computer" />
+                                <div class="card-body">
+                                    <div class="">
+                                        <h5 class="judul-produk "><?= $p['nama']; ?></h5>
+                                        <span><?= "Rp " .  $p['harga']; ?></span>
+                                    </div>
+                                    <div class="d-flex deskripsi">
+                                        <p class="text-muted mb-4"><?= $p['deskripsi']; ?></p>
+                                    </div>
+                                    <div class="products-btn">
+                                        <a class="btn btn-outline-success products-btn-jemput" href="/product/beli2/<?= $p['slug']; ?>">Jemput di toko</a>
+                                        <a class="btn btn-success products-btn-antar" href="/product/beli/<?= $p['slug']; ?>">Diantar kurir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
-        <?php endforeach; ?>
+        </section>
     </div>
 </div>
 <?= $this->endSection(); ?>

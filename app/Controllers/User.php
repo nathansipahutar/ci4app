@@ -26,6 +26,7 @@ class User extends BaseController
         $data = [
             'title' => 'User | Bunch of Gifts',
             'user' => $this->userModel->getUserDetail($id),
+            'statusNav' => 'profile'
         ];
 
         return view('user/index', $data);
@@ -44,6 +45,7 @@ class User extends BaseController
             'title' => 'Form Edit Data User | Bunch of Gifts',
             'validation' => \Config\Services::validation(),
             'user' => $this->userModel->getUserDetail($id),
+            'statusNav' => 'profile'
         ];
         return view('user/edit', $data);
     }

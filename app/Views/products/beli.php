@@ -59,18 +59,22 @@ $submit = [
 ];
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-6">
+<div class="beli-container container">
+    <div class="form-beli-heading">
+        <h2 class="text-center">Form Pemesanan produk</h2>
+        <p class="text-center">Silahkan lengkapi form berikut untuk melakukan pemesanan produk</p>
+    </div>
+    <div class="form-pembelian2-responsive row">
+        <div class="form-beli2 col-6">
             <div class="card">
                 <div class="card-body">
                     <img src="/img/<?= $products['gambar'] ?>" alt="" class="img-fluid">
-                    <h1 class="text-success"><?= $products['nama'] = isset($products['nama']) ? $products['nama'] : ''; ?></h1>
-                    <h4>Harga : <?= $products['harga'] = isset($products['harga']) ? $products['harga'] : ''; ?></h4>
+                    <h3 class="nama-product"><?= $products['nama'] = isset($products['nama']) ? $products['nama'] : ''; ?></h3>
+                    <h4 class="harga-product">Rp <?= $products['harga'] = isset($products['harga']) ? $products['harga'] : ''; ?></h4>
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="form-beli2 col-6">
             <h4>Pengiriman</h4>
             <div class="form-group">
                 <label for="provinsi">Pilih Provinsi</label>
@@ -115,7 +119,7 @@ $submit = [
                 <?= form_label('Alamat', 'alamat'); ?>
                 <?= form_input($alamat); ?>
             </div>
-            <div class="text-right">
+            <div class="submit-beli1 text-right">
                 <?= form_submit($submit); ?>
             </div>
             <?= form_close(); ?>

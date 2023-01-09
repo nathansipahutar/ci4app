@@ -1,13 +1,20 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 
-<h1>Lacak Resi</h1>
-<h2>test</h2>
+<div class="container">
+    <div class="row">
+        <div class="lacak-pesanan-heading">
+            <h2 class="text-center">Lacak Resi</h2>
+        </div>
+        <div class="col-lg-8">
+            <p>Berikut adalah kode resi anda : <?= $transaksi->kode_resi; ?></p>
+            <div id="resi_status"></div>
+            <div id="resi_posisi"></div>
+            <div id="resi_result"></div>
+        </div>
+    </div>
+</div>
 
-<p><?= $transaksi->kode_resi; ?></p>
-<div class="row" id="resi_status"></div>
-<div class="row" id="resi_posisi"></div>
-<div class="row" id="resi_result"></div>
 <!-- <div class="col-md-8">
     <h1>STATUS PENGIRIMAN</h1>
     <table class="table table-bordered">
@@ -63,65 +70,64 @@
                     let resi = result.data;
                     console.log(resi);
                     $('#resi_status').html(`
-                        <div class="col-md-8">
-                            <h1>STATUS PENGIRIMAN</h1>
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">STATUS</th>
-                                        <td>` + resi.summary.status + `</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">LAYANAN</th>
-                                        <td>` + resi.summary.service + `</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">PENGIRIM</th>
-                                        <td>` + resi.detail.shipper + `</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">ASAL</th>
-                                        <td>` + resi.detail.origin + `</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">PENERIMA</th>
-                                        <td>` + resi.detail.receiver + `</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">TUJUAN</th>
-                                        <td>` + resi.detail.destination + `</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <h3>STATUS PENGIRIMAN</h3>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">STATUS</th>
+                                    <td>` + resi.summary.status + `</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">LAYANAN</th>
+                                    <td>` + resi.summary.service + `</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PENGIRIM</th>
+                                    <td>` + resi.detail.shipper + `</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">ASAL</th>
+                                    <td>` + resi.detail.origin + `</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PENERIMA</th>
+                                    <td>` + resi.detail.receiver + `</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">TUJUAN</th>
+                                    <td>` + resi.detail.destination + `</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     `);
                     var lacakPosisi = '';
                     for (let i = 0; i < resi.history.length; i++) {
                         lacakPosisi +=
-                            `<tbody>
-                                <tr>
-                                    <th scope="row">DATE</th>
-                                    <td>` + resi.history[i].date + `</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">DESC</th>
-                                    <td>` + resi.history[i].desc + `</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">LOCATION</th>
-                                    <td>` + resi.history[i].location + `</td>
-                                </tr>
-                            </tbody>`
+
+                            `
+                            <table class="table table-bordered">
+                                <tbody class="resi-posisi">
+                                    <tr>
+                                        <th scope="row">DATE</th>
+                                        <td>` + resi.history[i].date + `</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DESC</th>
+                                        <td>` + resi.history[i].desc + `</td>
+                                    </tr>
+                                </tbody>
+                            </table>`
+
                     }
 
                     $('#resi_posisi').html(`
-                    <table class="table table-bordered">${lacakPosisi}
-                    </table>
+                    ${lacakPosisi}
+                    
                     `);
                 } else {
                     $('#resi_result').html(`
                         <div class="col">
-                            <h1 class="text-center">SALAH WOY</h1>
+                            <h1 class="text-center">Maaf kode resi yang diinput salah</h1>
                         </div>
                     `)
                 }

@@ -1,6 +1,6 @@
-<?= $this->extend('layout/template'); ?>
+<?= $this->extend('templates/index'); ?>
 
-<?= $this->section('content'); ?>
+<?= $this->section('page-content'); ?>
 <div class="container">
     <div class="row">
         <div class="col-8">
@@ -39,7 +39,7 @@
                 <div class="form-group row">
                     <label for="deskripsi" class="col-sm-2 col-form-label">deskripsi</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control <?= ($validation->hasError('deskripsi')) ? 'is-invalid' : ''; ?>" id="deskripsi" name="deskripsi" autofocus value="<?= old('deskripsi'); ?>">
+                        <input type="text" class="form-control <?= ($validation->hasError('deskripsi')) ? 'is-invalid' : ''; ?>" id="deskripsi" name="deskripsi" value="<?= old('deskripsi'); ?>">
                         <div class="invalid-feedback">
                             <?= $validation->getError('deskripsi'); ?>
                         </div>

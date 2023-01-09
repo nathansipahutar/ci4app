@@ -1,3 +1,7 @@
+body {
+  min-height: 100%;
+}
+
 .sampul{
     width: 100px;
 }
@@ -6,9 +10,207 @@
     vertical-align: middle;
 }
 
+.hp-btn-hero{
+  display: none !important;
+}
+
 /* CEK PEMBAYARAN */
 .container-cekPembayaran{
   margin-left: 20px;
+}
+
+.border-card{
+  border-radius: 15px;
+}
+.border-card img{
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+nav.navbar{
+  /* overflow: hidden; */
+  background-color: #fff;
+  position: fixed;
+  top: 0px;
+  /* left: 0; */
+  z-index: 9;
+  width: 100%;
+}
+.navbar-nav .active{
+  font-weight: 600;
+}
+
+.form-bayar{
+  padding-top: 50px;
+}
+.cek-bayar-container{
+  padding: 50px;
+}
+
+.sidebar-admin{
+  position: sticky;
+  top: 0px;
+  left: 0px;
+}
+.sidebar-admin ul.sidebar{
+  position: sticky;
+  top: 0px;
+  left: 0px;
+}
+
+.products-container-handphone{
+  display: none;
+}
+
+/* ADMIN */
+/* PRODUCT */
+.img-detail-product img{
+  height: 100%;
+}
+@media only screen and (max-width: 1125px){
+  .hp-btn-hero{
+    display: inline !important;
+  }
+  .web-btn-hero{
+    display: none !important;
+  }
+  .user-transaksi-container{
+      display: none;
+  }
+  .responsive-list-transaksi{
+      display: block;
+  }
+  .responsive-hp-navbar{
+      display: flex;
+      flex-direction: row;
+      left: 0px;
+  }
+  .navbar-king-container{
+      display: block !important;
+      margin-left: 0px !important;
+  }
+  .logo-container{
+      margin-left: 20px;
+  }
+  .hero-header{
+    padding-top: 150px;
+  }
+  .hero-content{
+    display: flex;
+    flex-direction: column;
+  }
+  .content .textBoxHome{
+    min-width: 350px !important;
+  }
+  .content .textBoxHome h1{
+    text-align: left;
+  }
+  .content .textBoxHome p{
+    max-width: 100%;
+  }
+  .content .imgBoxHome{
+    width: auto;
+    padding: 0px;
+  }
+  ul.sci{
+    display: flex;
+    flex-direction: row;
+  }
+  ul.sci li{
+    margin: 0 30px;
+  }
+
+  /* CARD PRODUCTS */
+  .products-container-handphone{
+    display: flex;
+    justify-content: center;
+  }
+  .products-list-hp .card{
+    margin-bottom: 50px;
+    background-color: antiquewhite;
+  }
+  .products-container{
+    display: none;
+  }
+
+  /* FORM PEMBELIAN */
+  .form-pembelian2-responsive{
+    display: flex;
+    flex-direction: column;
+  }
+  .form-beli2{
+    min-width: 100%;
+    margin-bottom: 50px;
+  }
+
+  /* FORM BAYAR */
+  .form-bayar{
+    min-width: 85%;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  /* HOME */
+  .products-list{
+      flex-direction: column;
+  }
+  .maps-frame{
+      width: auto;
+  }
+  .products-container{
+      flex-direction: column;
+  }
+  .products-container .card{
+      width: auto;
+      max-width: 400px;
+      align-items: flex-start;
+      flex-direction: column;
+  }
+
+  .products-container .card:hover{
+      height: 600px;
+  }
+  .products-container .card:hover img{
+      left: 50%;
+      height: 350px;
+  }
+  .products-container .card .card-content{
+      width: 100%;
+      left: 0;
+      padding: 40px;
+  }
+
+  /* PRODUCT CARDS */
+  .products-btn{
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: space-between;
+  }
+  .products-btn a{
+      margin-bottom: 10px;
+  }
+
+  /* DETAIL TRANSAKSI */
+  .table-detail-transaksi{
+      display: none;
+  }
+  .detail-transaksi{
+      display: flex;
+      flex-direction: column;
+  }
+  .transaksi-container .p-headings{
+      max-width: 100%;
+  }
+  .link-order{
+      align-items: center;
+      width: 100%;
+  }
+
+  /* FORM BELI */
+  .submit-beli1 input{
+    width: 100% !important;
+  }
 }
 
 .footer-16371 a {
@@ -59,3 +261,12 @@
         .footer-16371 .copyright {
           color: #999999; }
       
+          @media only screen and (max-width: 600px){
+            .nav-links{
+              display: flex;
+              flex-direction: column;
+            }
+            .nav-links li{
+              margin-bottom: 20px;
+            }
+          }

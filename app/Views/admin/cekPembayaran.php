@@ -2,7 +2,7 @@
 
 <?= $this->section('page-content'); ?>
 <div class="container container-cekPembayaran">
-    <div class="row">
+    <div class="cek-bayar-container row">
         <div class="col-6">
 
             <h2>Cek Pembayaran</h2>
@@ -50,8 +50,8 @@
 
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input class="btn btn-warning" name="submit" value="bukti_salah" type="submit">
-                        <input class="btn btn-primary" name="submit" value="bukti_benar" type="submit">
+                        <input class="btn btn-warning" name="submit" value="bukti salah" aria-label="halo" type="submit">
+                        <input class="btn btn-primary" name="submit" value="bukti benar" type="submit">
                     </div>
                 </div>
             </form>
